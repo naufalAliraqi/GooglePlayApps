@@ -14,13 +14,13 @@ class AppAnalyzer {
      *
      */
     fun finedAppDevelopedByGoogle(googleApp: MutableList<GooglePlayApp>): Int{
-        val listGoogleApps = mutableListOf<String>()
+        var count = 0
         googleApp.forEach {
             if (it.company.contains("Google")) {
-                listGoogleApps.add(it.appName)
+                count++
             }
         }
-        return listGoogleApps.size
+        return count
     }
     // endregion
 
