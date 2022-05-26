@@ -21,7 +21,7 @@ fun main() {
             4 -> println("The percentage of apps running on android 9 and up only is " + appAnalyzer.finedPercentageOfAppRunningOnAndroid9AndUp() + "%")
             5 -> println("The largest 10 apps in the dataset are: " + appAnalyzer.finedLargest10App())
             6 -> println("The top 10 installed apps are: " + appAnalyzer.finedTop10InstalledApp())
-            7 -> println("Goodbye")
+            7 -> println("Goodbye...")
             else -> println("Please enter a valid number")
         }
     }while (readLine()!!.toInt() == 7)
