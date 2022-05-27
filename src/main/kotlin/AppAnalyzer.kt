@@ -34,27 +34,21 @@ class AppAnalyzer {
 
 
     }
-    fun finedPercentageOfAppRunningOnAndroid9AndUp(PercAPP:MutableList<GooglePlayApp>): Int {
-        run {
+    fun finedPercentageOfAppRunningOnAndroid9AndUp(){
 
-            var count = 0
 
-            PercAPP.forEach {
-                if (it.requiresAndroid.contains("9 to up ")) {
-                    count++
-                }
-            }
-            return (PercAPP.size / count) * 100
 
+    }
+    fun finedLargest10App(){
+
+
+
+    }
+    fun finedTop10InstalledApps(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String> {
+        val listOfAppName: MutableList<String> = mutableListOf()
+        listOfGooglePlayApp.sortedBy { it.installs }.subList(0, 10).forEach {
+            listOfAppName.add(it.appName)
         }
-        fun finedLargest10App() {
-
-
-        }
-
-        fun finedTop10InstalledApp() {
-
-
-        }
-
-    }}
+        return listOfAppName
+    }
+}
