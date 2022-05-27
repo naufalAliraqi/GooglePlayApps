@@ -16,7 +16,7 @@ fun main() {
         println("Please enter the number of the app you want to know more about: ")
         when (readLine()!!.toInt()) {
             1 -> println("This is a develop by google " + appAnalyzer.finedAppDevelopedByGoogle(csvTest.googlePlayApps) + " apps" )
-            2 -> println("The percentage of Medical apps is " + appAnalyzer.finedPercentageOfMedicalApp() + "%")
+            2 -> println("The percentage of Medical apps is " + appAnalyzer.finedPercentageOfMedicalApps(csvTest.googlePlayApps) + "%")
             3 -> println("The oldest app in the dataset is " + appAnalyzer.finedOldestApp())
             4 -> println("The percentage of apps running on android 9 and up only is " + appAnalyzer.finedPercentageOfAppRunningOnAndroid9AndUp() + "%")
             5 -> println("The largest 10 apps in the dataset are: " + appAnalyzer.finedLargest10App())
