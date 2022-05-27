@@ -41,8 +41,14 @@ class AppAnalyzer {
 
 
     }
-    fun finedPercentageOfAppRunningOnAndroid9AndUp(){
-
+    fun finedPercentageOfAppRunningOnAndroid9AndUp(App_perc: MutableList<GooglePlayApp>): Int{
+            var count = 0
+            App_perc.forEach {
+                if (it.requiresAndroid.contains("9 and up")) {
+                    count++
+                }
+            }
+            return (App_perc.size/count)*100
 
 
     }
