@@ -23,9 +23,16 @@ class AppAnalyzer {
         return count
     }
     // endregion
-
-    fun finedPercentageOfMedicalApp(){
-
+        fun finedPercentageOfMedicalApps(googleApp: MutableList<GooglePlayApp>): Int {
+            var countofmedicalapp = 0
+            var countofallapps = 0
+            googleApp.forEach {
+                if (it.category.contains("Medical")) {
+                    countofmedicalapp++
+                }
+                countofallapps++
+            }
+            return (countofmedicalapp/countofallapps)*100
 
 
     }
