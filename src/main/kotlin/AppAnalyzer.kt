@@ -34,19 +34,27 @@ class AppAnalyzer {
 
 
     }
-    fun finedPercentageOfAppRunningOnAndroid9AndUp(){
+    fun finedPercentageOfAppRunningOnAndroid9AndUp(PercAPP:MutableList<GooglePlayApp>): Int {
+        run {
+
+            var count = 0
+
+            PercAPP.forEach {
+                if (it.requiresAndroid.contains("9 to up ")) {
+                    count++
+                }
+            }
+            return (PercAPP.size / count) * 100
+
+        }
+        fun finedLargest10App() {
 
 
+        }
 
-    }
-    fun finedLargest10App(){
-
-
-
-    }
-    fun finedTop10InstalledApp(){
+        fun finedTop10InstalledApp() {
 
 
+        }
 
-    }
-}
+    }}
