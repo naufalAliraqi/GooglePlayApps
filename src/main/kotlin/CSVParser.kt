@@ -5,10 +5,8 @@ import java.time.format.DateTimeFormatter
 
 class CSVParser {
     private val file = File("src/main/google_play.csv")
-    var googlePlayApps = mutableListOf<GooglePlayApp>()
-        private set
-
-    fun parseCSV() {
+    fun parseCSV(): MutableList<GooglePlayApp> {
+        val googlePlayApps = mutableListOf<GooglePlayApp>()
         file.forEachLine {
             val apps = it.split(",")
             googlePlayApps.add(
@@ -23,9 +21,7 @@ class CSVParser {
                 )
             )
         }
-        googlePlayApps.forEach {
-            println(it.size)
-        }
+        return googlePlayApps
     }
 
     // convert from String to Date
