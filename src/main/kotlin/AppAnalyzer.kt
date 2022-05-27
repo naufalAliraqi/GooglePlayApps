@@ -44,9 +44,11 @@ class AppAnalyzer {
 
 
     }
-    fun finedTop10InstalledApp(){
-
-
-
+    fun finedTop10InstalledApps(listOfGooglePlayApp: MutableList<GooglePlayApp>): List<String> {
+        val listOfAppName: MutableList<String> = mutableListOf()
+        listOfGooglePlayApp.sortedBy { it.installs }.subList(0, 9).forEach {
+            listOfAppName.add(it.appName)
+        }
+        return listOfAppName
     }
 }
