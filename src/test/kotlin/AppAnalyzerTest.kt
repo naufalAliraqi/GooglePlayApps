@@ -118,7 +118,6 @@ internal class AppAnalyzerTest {
         //given
         val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
 
-
         //when
         val percentage = finedPercentageOfAppRunningOnAndroid9AndUp()
 
