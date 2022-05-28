@@ -1,4 +1,5 @@
 import model.GooglePlayApp
+import kotlin.math.roundToInt
 
 class AppAnalyzer {
 
@@ -24,7 +25,8 @@ class AppAnalyzer {
     }
 
     // endregion
-    fun finedPercentageOfMedicalApps(googleApp: MutableList<GooglePlayApp>): Int {
+
+    fun finedPercentageOfMedicalApps(googleApp: MutableList<GooglePlayApp>): Double {
         var countofmedicalapp = 0
         var countofallapps = 0
         googleApp.forEach {
@@ -33,7 +35,7 @@ class AppAnalyzer {
             }
             countofallapps++
         }
-        return (countofmedicalapp / countofallapps) * 100
+        return (((countofmedicalapp * 1.0 / countofallapps) * 100) * 10).roundToInt() / 10.0
 
 
     }
@@ -51,49 +53,48 @@ class AppAnalyzer {
             oldestApp.appName
         }
     }
-}
 
-fun finedPercentageOfAppRunningOnAndroid9AndUp(App_perc: MutableList<GooglePlayApp>): Int {
-    var count = 0
-    App_perc.forEach {
-        if (it.requiresAndroid.contains("9 and up")) {
-            count++
+    //
+    fun finedPercentageOfAppRunningOnAndroid9AndUp(App_perc: MutableList<GooglePlayApp>): Double {
+        var count = 0
+        App_perc.forEach {
+            if (it.requiresAndroid.contains("9 and up")) {
+                count++
+            }
         }
+        return (((count * 1.0 / App_perc.size) * 100) * 10).roundToInt() / 10.0
     }
-    return (App_perc.size / count) * 100
 
-
-}
-
-fun finedLargest10App(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
-    val listOfAppName: MutableList<String> = mutableListOf()
-    if (listOfGooglePlayApp.size > 9) {
-        listOfGooglePlayApp.sortedByDescending { it.size }.subList(0, 10).forEach {
-            listOfAppName.add(it.appName)
+    fun finedLargest10App(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
+        val listOfAppName: MutableList<String> = mutableListOf()
+        if (listOfGooglePlayApp.size > 9) {
+            listOfGooglePlayApp.sortedByDescending { it.size }.subList(0, 10).forEach {
+                listOfAppName.add(it.appName)
+            }
+        } else {
+            listOfGooglePlayApp.sortedByDescending { it.size }.forEach {
+                listOfAppName.add(it.appName)
+            }
         }
-    } else {
-        listOfGooglePlayApp.sortedByDescending { it.size }.forEach {
-            listOfAppName.add(it.appName)
-        }
+        if (listOfAppName.size == 0)
+            return null
+        return listOfAppName
     }
-    if (listOfAppName.size == 0)
-        return null
-    return listOfAppName
-}
 
 
-fun finedTop10InstalledApps(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
-    val listOfAppName: MutableList<String> = mutableListOf()
-    if (listOfGooglePlayApp.size > 9) {
-        listOfGooglePlayApp.sortedByDescending { it.installs }.subList(0, 10).forEach {
-            listOfAppName.add(it.appName)
+    fun finedTop10InstalledApps(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
+        val listOfAppName: MutableList<String> = mutableListOf()
+        if (listOfGooglePlayApp.size > 9) {
+            listOfGooglePlayApp.sortedByDescending { it.installs }.subList(0, 10).forEach {
+                listOfAppName.add(it.appName)
+            }
+        } else {
+            listOfGooglePlayApp.sortedByDescending { it.installs }.forEach {
+                listOfAppName.add(it.appName)
+            }
         }
-    } else {
-        listOfGooglePlayApp.sortedByDescending { it.installs }.forEach {
-            listOfAppName.add(it.appName)
-        }
+        if (listOfAppName.size == 0)
+            return null
+        return listOfAppName
     }
-    if (listOfAppName.size == 0)
-        return null
-    return listOfAppName
 }
