@@ -113,6 +113,20 @@ internal class AppAnalyzerTest {
         assertEquals(50, percentage)
     }
 
+    @Test
+    fun should_ReturnZero_When_ListEmpty() {
+        //given
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+
+
+        //when
+        val percentage = finedPercentageOfAppRunningOnAndroid9AndUp()
+
+        //then
+        assertEquals(0, percentage)
+    }
+
+
 
     @Test
     fun finedLargest10App() {
