@@ -57,7 +57,48 @@ internal class AppAnalyzerTest {
     }
 
     @Test
-    fun finedPercentageOfMedicalApp() {
+    fun should_Return100PercentageOfMedicalApps_When_HaveListOfApps() {
+        // given list of apps with 100% medical apps
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        googlePlayAppList.add(GooglePlayApp("Medical Mnemonics", "Regular Rate and Rhythm Software", "Medical",
+            LocalDate.parse("May 19 2011", DateTimeFormatter.ofPattern("MMMM d yyyy")), 0.362305,1000,
+            "1.6 and up"))
+        // when calculate percentage
+        val percentage = appAnalyzer.finedPercentageOfMedicalApps(googlePlayAppList)
+        // then check the result
+        assertEquals(100.0, percentage)
+    }
+
+    @Test
+    fun should_Return50PercentageOfMedicalApps_When_HaveListOfApps() {
+        // given list of apps with 50% medical apps
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        googlePlayAppList.add(GooglePlayApp("Medical Mnemonics", "Regular Rate and Rhythm Software", "Medical",
+            LocalDate.parse("May 19 2011", DateTimeFormatter.ofPattern("MMMM d yyyy")), 0.362305,1000,
+            "1.6 and up"))
+        googlePlayAppList.add(GooglePlayApp("FOX 4 Dallas-Fort Worth: Weather", "Fox Television Stations Inc.",
+            "Weather", LocalDate.parse("March 27 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")),
+            51.0,2000,"8.0 and up"))
+        // when calculate percentage
+        val percentage = appAnalyzer.finedPercentageOfMedicalApps(googlePlayAppList)
+        // then check the result
+        assertEquals(50.0, percentage)
+    }
+
+    @Test
+    fun should_ReturnZero_When_HaveListOfAppsWithOutMedicalApp() {
+        // given list of apps with zero medical apps
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        googlePlayAppList.add(GooglePlayApp("Medical Mnemonics", "Regular Rate and Rhythm Software", "Photography",
+            LocalDate.parse("May 19 2011", DateTimeFormatter.ofPattern("MMMM d yyyy")), 0.362305,1000,
+            "1.6 and up"))
+        googlePlayAppList.add(GooglePlayApp("FOX 4 Dallas-Fort Worth: Weather", "Fox Television Stations Inc.",
+            "Weather", LocalDate.parse("March 27 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")),
+            51.0,2000,"8.0 and up"))
+        // when calculate percentage
+        val percentage = appAnalyzer.finedPercentageOfMedicalApps(googlePlayAppList)
+        // then check the result
+        assertEquals(0.0, percentage)
     }
 
     @Test
