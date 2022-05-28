@@ -168,7 +168,7 @@ internal class AppAnalyzerTest {
 
     @Test
     fun should_ReturnNullValue_When_TheListOfAppsIsEmpty() {
-        // given list of google play apps have 5 element
+        // given empty list of google play apps
         val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
 
         // when find the top installed apps name
