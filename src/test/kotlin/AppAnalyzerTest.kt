@@ -72,6 +72,30 @@ internal class AppAnalyzerTest {
         // then check the result
         assertEquals("Medical Mnemonics", olderApp)
     }
+    @Test
+    fun should_ReturnOlderApp_When_HaveListWithAppMultiItems() {
+        // given list contain one "Google" word
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        googlePlayAppList.add(GooglePlayApp("Jewel Blast : Temple", "", "Puzzle",
+            LocalDate.parse("April 11 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")), 50.0,1000,
+            "4.4 and up"))
+        googlePlayAppList.add(GooglePlayApp("myAudi","Audi","Auto & Vehicles",
+            LocalDate.parse("May 10 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")),
+            53.0,1250,"8.0 and up"))
+        // when calculate number of Apps
+        val olderApp = appAnalyzer.findOldestApp(googlePlayAppList)
+        // then check the result
+        assertEquals("Jewel Blast : Temple", olderApp)
+    }
+    @Test
+    fun should_ReturnNullOlderApp_When_HaveListWithApp() {
+        // given list contain one "Google" word
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        // when calculate number of Apps
+        val olderApp = appAnalyzer.findOldestApp(googlePlayAppList)
+        // then check the result
+        assertEquals("No apps found",olderApp)
+    }
 
     @Test
     fun finedPercentageOfAppRunningOnAndroid9AndUp() {

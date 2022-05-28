@@ -41,13 +41,17 @@ class AppAnalyzer {
     }
 
     fun findOldestApp(googleApp: MutableList<GooglePlayApp>): String {
-        var oldestApp = googleApp[0]
-        googleApp.forEach {
-            if (it.updated < oldestApp.updated) {
-                oldestApp = it
+        return if (googleApp.isEmpty()) {
+            "No apps found"
+        } else {
+            var oldestApp = googleApp[0]
+            googleApp.forEach {
+                if (it.updated < oldestApp.updated) {
+                    oldestApp = it
+                }
             }
+            oldestApp.appName
         }
-        return oldestApp.appName
     }
 
     //
