@@ -156,11 +156,11 @@ internal class AppAnalyzerTest {
             53.0,1250,"8.0 and up"))
 
         // when find the top 10 installed apps name
-//        val result = appAnalyzer.finedTop10InstalledApps(googlePlayAppList)
+        val result = appAnalyzer.finedTop10InstalledApps(googlePlayAppList)
         // then
-//        assertEquals(mutableListOf("Dinosaur Airport:Game for kids", "Crazy Pusher", "Baby Game for 2 3 4 Year Old", "Garage Master - games for kids",
-//            "Slice: Pizza Delivery-Pick Up", "Manta: Comics & Graphic Novels", "StyleSeat: Book Hair & Beauty", "FOX 4 Dallas-Fort Worth: Weather",
-//            "Eyes : Nonogram", "myAudi"), result)
+        assertEquals(mutableListOf("Dinosaur Airport:Game for kids", "Crazy Pusher", "Baby Game for 2 3 4 Year Old", "Garage Master - games for kids",
+            "Slice: Pizza Delivery-Pick Up", "Manta: Comics & Graphic Novels", "StyleSeat: Book Hair & Beauty", "FOX 4 Dallas-Fort Worth: Weather",
+            "Eyes : Nonogram", "myAudi"), result)
     }
 
     @Test
@@ -184,10 +184,10 @@ internal class AppAnalyzerTest {
             21.0,4000,"4.1 and up"))
 
         // when find the top installed apps name
-//        val result = appAnalyzer.finedTop10InstalledApps(googlePlayAppList)
+        val result = appAnalyzer.finedTop10InstalledApps(googlePlayAppList)
         // then
-//        assertEquals(mutableListOf("Dinosaur Airport:Game for kids", "Crazy Pusher", "Baby Game for 2 3 4 Year Old", "Garage Master - games for kids",
-//            "Slice: Pizza Delivery-Pick Up"), result)
+        assertEquals(mutableListOf("Dinosaur Airport:Game for kids", "Crazy Pusher", "Baby Game for 2 3 4 Year Old", "Garage Master - games for kids",
+            "Slice: Pizza Delivery-Pick Up"), result)
     }
 
     @Test
@@ -196,8 +196,8 @@ internal class AppAnalyzerTest {
         val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
 
         // when find the top installed apps name
-//        val result = appAnalyzer.finedTop10InstalledApps(googlePlayAppList)
+        val result = appAnalyzer.finedTop10InstalledApps(googlePlayAppList)
         // then
-//        assertNull(result)
+        assertNull(result)
     }
 }

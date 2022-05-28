@@ -20,10 +20,10 @@ fun main() {
             1 -> println("This is a develop by google " + appAnalyzer.finedAppDevelopedByGoogle(googlePlayAppList) + " apps" )
             2 -> println("The percentage of Medical apps is " + appAnalyzer.finedPercentageOfMedicalApps(googlePlayAppList) + "%")
             3 -> println("The oldest app in the dataset is " + appAnalyzer.findOldestApp(googlePlayAppList))
-//            4 -> println("The percentage of apps running on android 9 and up only is " + appAnalyzer.finedPercentageOfAppRunningOnAndroid9AndUp(googlePlayAppList) + "%")
-//            5 -> println("The largest 10 apps in the dataset are: " + appAnalyzer.finedLargest10App(googlePlayAppList))
-//            6 -> {println("The top 10 installed apps are: ")
-//            println(appAnalyzer.finedTop10InstalledApps(googlePlayAppList))}
+            4 -> println("The percentage of apps running on android 9 and up only is " + appAnalyzer.finedPercentageOfAppRunningOnAndroid9AndUp(googlePlayAppList) + "%")
+            5 -> println("The largest 10 apps in the dataset are: " + appAnalyzer.finedLargest10App(googlePlayAppList))
+            6 -> {println("The top 10 installed apps are: ")
+            println(appAnalyzer.finedTop10InstalledApps(googlePlayAppList))}
             7 -> println("Goodbye...")
             else -> println("Please enter a valid number")
         }
