@@ -61,7 +61,16 @@ internal class AppAnalyzerTest {
     }
 
     @Test
-    fun finedOldestApp() {
+    fun should_ReturnOlderApp_When_HaveListWithApp() {
+        // given list contain one "Google" word
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        googlePlayAppList.add(GooglePlayApp("Medical Mnemonics", "Regular Rate and Rhythm Software", "Medical",
+            LocalDate.parse("May 19 2011", DateTimeFormatter.ofPattern("MMMM d yyyy")), 0.362305,1000,
+            "1.6 and up"))
+        // when calculate number of Apps
+        val olderApp = appAnalyzer.findOldestApp(googlePlayAppList)
+        // then check the result
+        assertEquals("Medical Mnemonics", olderApp)
     }
 
     @Test
