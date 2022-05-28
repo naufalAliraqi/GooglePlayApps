@@ -59,8 +59,6 @@ class AppAnalyzer {
             }
         }
         return (((count * 1.0 / App_perc.size) * 100) * 10).roundToInt() / 10.0
-
-
     }
 
     fun finedLargest10App(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
