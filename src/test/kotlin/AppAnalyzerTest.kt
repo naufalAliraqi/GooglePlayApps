@@ -17,8 +17,9 @@ internal class AppAnalyzerTest {
         appAnalyzer = AppAnalyzer()
     }
 
+    // region test functions for findAppDevelopedByGoogle function
     @Test
-    fun should_ReturnNumber1_When_HaveListWith1App() {
+    fun should_ReturnNumber1_When_HaveListWith1GoogleApp() {
         // given list contain one "Google" word
         val googlePlayAppList: MutableList<GooglePlayApp> = mutableListOf()
         googlePlayAppList.add(
@@ -29,13 +30,13 @@ internal class AppAnalyzerTest {
             )
         )
         // when calculate number of Apps
-        val numberOfApps = appAnalyzer.finedAppDevelopedByGoogle(googlePlayAppList)
+        val numberOfApps = appAnalyzer.findAppDevelopedByGoogle(googlePlayAppList)
         // then check the result
         assertEquals(1, numberOfApps)
     }
 
     @Test
-    fun should_ReturnZero_When_HaveListDoesntContainApp() {
+    fun should_ReturnZero_When_HaveListWithNoAnyGoogleApp() {
         // given list that doesn't contain the word Google
         val googlePlayAppList: MutableList<GooglePlayApp> = mutableListOf()
         googlePlayAppList.add(
@@ -46,7 +47,7 @@ internal class AppAnalyzerTest {
             )
         )
         // when calculate number of Apps
-        val numberOfApps = appAnalyzer.finedAppDevelopedByGoogle(googlePlayAppList)
+        val numberOfApps = appAnalyzer.findAppDevelopedByGoogle(googlePlayAppList)
         // then check the result
         assertEquals(0, numberOfApps)
     }
@@ -63,13 +64,16 @@ internal class AppAnalyzerTest {
             )
         )
         // when calculate number of Apps
-        val numberOfApps = appAnalyzer.finedAppDevelopedByGoogle(googlePlayAppList)
+        val numberOfApps = appAnalyzer.findAppDevelopedByGoogle(googlePlayAppList)
         // then check the result
         assertEquals(0, numberOfApps)
     }
 
+    // endregion
+
+    // region test functions for findPercentageOfMedicalApps function
     @Test
-    fun should_Return100PercentageOfMedicalApps_When_HaveListOfApps() {
+    fun should_ReturnCorrectPercentageOfMedicalApps_When_HaveListOfMedicalAppsOnly() {
         // given list of apps with 100% medical apps
         val googlePlayAppList: MutableList<GooglePlayApp> = mutableListOf()
         googlePlayAppList.add(
@@ -80,13 +84,13 @@ internal class AppAnalyzerTest {
             )
         )
         // when calculate percentage
-        val percentage = appAnalyzer.finedPercentageOfMedicalApps(googlePlayAppList)
+        val percentage = appAnalyzer.findPercentageOfMedicalApps(googlePlayAppList)
         // then check the result
         assertEquals(100.0, percentage)
     }
 
     @Test
-    fun should_Return50PercentageOfMedicalApps_When_HaveListOfApps() {
+    fun should_ReturnCorrectPercentageOfMedicalApps_When_HaveListOfAppsWithMedicalApps() {
         // given list of apps with 50% medical apps
         val googlePlayAppList: MutableList<GooglePlayApp> = mutableListOf()
         googlePlayAppList.add(
@@ -103,10 +107,16 @@ internal class AppAnalyzerTest {
                 51.0, 2000, "8.0 and up"
             )
         )
+        googlePlayAppList.add(
+            GooglePlayApp(
+                "Eyes : Nonogram","GAMEFOX", "Puzzle",
+                LocalDate.parse("May 13 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")),
+                51.0,1500,"5.0 and up")
+        )
         // when calculate percentage
-        val percentage = appAnalyzer.finedPercentageOfMedicalApps(googlePlayAppList)
+        val percentage = appAnalyzer.findPercentageOfMedicalApps(googlePlayAppList)
         // then check the result
-        assertEquals(50.0, percentage)
+        assertEquals(33.3, percentage)
     }
 
     @Test
@@ -128,11 +138,24 @@ internal class AppAnalyzerTest {
             )
         )
         // when calculate percentage
-        val percentage = appAnalyzer.finedPercentageOfMedicalApps(googlePlayAppList)
+        val percentage = appAnalyzer.findPercentageOfMedicalApps(googlePlayAppList)
         // then check the result
         assertEquals(0.0, percentage)
     }
 
+    @Test
+    fun should_ReturnZero_When_HaveEmptyList() {
+        // given list of apps with zero medical apps
+        val googlePlayAppList: MutableList<GooglePlayApp> = mutableListOf()
+        // when calculate percentage
+        val percentage = appAnalyzer.findPercentageOfMedicalApps(googlePlayAppList)
+        // then check the result
+        assertEquals(0.0, percentage)
+    }
+
+    // endregion
+
+    // region test functions for findOldestApp function
     @Test
     fun should_ReturnOlderApp_When_HaveListWithApp() {
         // given list contain one "Google" word
@@ -151,7 +174,7 @@ internal class AppAnalyzerTest {
     }
 
     @Test
-    fun should_ReturnOlderApp_When_HaveListWithAppMultiItems() {
+    fun should_ReturnOlderApp_When_HaveListWithMultiApps() {
         // given list contain one "Google" word
         val googlePlayAppList: MutableList<GooglePlayApp> = mutableListOf()
         googlePlayAppList.add(
@@ -175,17 +198,20 @@ internal class AppAnalyzerTest {
     }
 
     @Test
-    fun should_ReturnNullOlderApp_When_HaveListWithApp() {
+    fun should_ReturnNull_When_HaveEmptyList() {
         // given list contain one "Google" word
         val googlePlayAppList: MutableList<GooglePlayApp> = mutableListOf()
         // when calculate number of Apps
         val olderApp = appAnalyzer.findOldestApp(googlePlayAppList)
         // then check the result
-        assertEquals("No apps found", olderApp)
+        assertNull(olderApp)
     }
 
+    // endregion
+
+    // region test functions for findPercentageOfAppRunningOnAndroid9AndUp function
     @Test
-    fun should_ReturnZero_WhenNotAppSupportSystem9() {
+    fun should_ReturnZero_When_NotAppRequiredAndroid9AndUp() {
         //given
         val googlePlayAppList: MutableList<GooglePlayApp> = mutableListOf()
         googlePlayAppList.add(
@@ -197,14 +223,14 @@ internal class AppAnalyzerTest {
         )
 
         //when
-        //val percentage = finedPercentageOfAppRunningOnAndroid9AndUp()
+        val percentage = appAnalyzer.findPercentageOfAppRunningOnAndroid9AndUp(googlePlayAppList)
 
         //then
-        //assertEquals(0, percentage)
+        assertEquals(0.0, percentage)
     }
 
     @Test
-    fun should_Return100_WhenAllAppsInSystem9() {
+    fun should_ReturnCorrectPercentage_When_ListOfGoogleAppsHaveAppsRequiredAndroid9AndUp() {
         //given
         val googlePlayAppList: MutableList<GooglePlayApp> = mutableListOf()
         googlePlayAppList.add(
@@ -214,39 +240,25 @@ internal class AppAnalyzerTest {
                 "9 and up"
             )
         )
-
-        //when
-        //val percentage = finedPercentageOfAppRunningOnAndroid9AndUp()
-
-        //then
-        //assertEquals(100, percentage)
-    }
-
-    @Test
-    fun should_Returnfifty_When_halfAppsSupportSystem9() {
-        //given
-        val googlePlayAppList: MutableList<GooglePlayApp> = mutableListOf()
         googlePlayAppList.add(
             GooglePlayApp(
-                "Jewel Blast : Temple", "", "Puzzle",
-                LocalDate.parse("April 11 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")), 50.0, 1000,
-                "7 and up"
+                "Jewel Blast : Temple", "SUPERBOX.Inc", "Puzzle",
+                LocalDate.parse("April 11 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")), 0.02, 1000,
+                "4.4 and up"
             )
         )
-
         googlePlayAppList.add(
             GooglePlayApp(
-                "Jewel Blast : Temple", "", "Puzzle",
-                LocalDate.parse("April 11 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")), 50.0, 1000,
-                "9 and up"
+                "FOX 4 Dallas-Fort Worth: Weather", "Fox Television Stations Inc.",
+                "Weather", LocalDate.parse("March 27 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")),
+                98.1, 2000, "8.0 and up"
             )
         )
-
         //when
-        //val percentage = finedPercentageOfAppRunningOnAndroid9AndUp()
+        val percentage = appAnalyzer.findPercentageOfAppRunningOnAndroid9AndUp(googlePlayAppList)
 
         //then
-        //assertEquals(50, percentage)
+        assertEquals(33.3, percentage)
     }
 
     @Test
@@ -255,13 +267,16 @@ internal class AppAnalyzerTest {
         val googlePlayAppList: MutableList<GooglePlayApp> = mutableListOf()
 
         //when
-        //val percentage = finedPercentageOfAppRunningOnAndroid9AndUp()
+        val percentage = appAnalyzer.findPercentageOfAppRunningOnAndroid9AndUp(googlePlayAppList)
 
         //then
-        //assertEquals(0, percentage)
+        assertEquals(0.0, percentage)
     }
 
+    // endregion
 
+
+    // region test functions for findLargest10App function
     @Test
     fun should_ReturnLargest10AppName_When_TheListOfAppsIsCorrectAndContainsMoreThan9Apps() {
         // given list of google play apps have 15 element
@@ -373,7 +388,7 @@ internal class AppAnalyzerTest {
         )
 
         // when fined the largest10 app of the list
-        val result = appAnalyzer.finedLargest10App(googlePlayAppList)
+        val result = appAnalyzer.findLargest10App(googlePlayAppList)
         // then
         assertEquals(mutableListOf(
                 "Baby Game for 2 3 4 Year Old",
@@ -430,7 +445,7 @@ internal class AppAnalyzerTest {
         )
 
         // when fined the largest10 app of list
-        val result = appAnalyzer.finedLargest10App(googlePlayAppList)
+        val result = appAnalyzer.findLargest10App(googlePlayAppList)
         // then
         assertEquals(
             mutableListOf(
@@ -449,11 +464,14 @@ internal class AppAnalyzerTest {
         val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
 
         // when find the top installed apps name
-        val result = appAnalyzer.finedLargest10App(googlePlayAppList)
+        val result = appAnalyzer.findLargest10App(googlePlayAppList)
         // then
         assertNull(result)
     }
 
+    // endregion
+
+    // region test functions for findTop10InstalledApps function
     @Test
     fun should_ReturnTop10InstalledAppName_When_TheListOfAppsIsCorrectAndContainsMoreThan9Apps() {
         // given list of google play apps have 15 element
@@ -505,7 +523,7 @@ internal class AppAnalyzerTest {
             53.0,1250,"8.0 and up"))
 
         // when find the top 10 installed apps name
-        val result = appAnalyzer.finedTop10InstalledApps(googlePlayAppList)
+        val result = appAnalyzer.findTop10InstalledApps(googlePlayAppList)
         // then
         assertEquals(mutableListOf("Dinosaur Airport:Game for kids", "Crazy Pusher", "Baby Game for 2 3 4 Year Old", "Garage Master - games for kids",
             "Slice: Pizza Delivery-Pick Up", "Manta: Comics & Graphic Novels", "StyleSeat: Book Hair & Beauty", "FOX 4 Dallas-Fort Worth: Weather",
@@ -533,7 +551,7 @@ internal class AppAnalyzerTest {
             21.0,4000,"4.1 and up"))
 
         // when find the top installed apps name
-        val result = appAnalyzer.finedTop10InstalledApps(googlePlayAppList)
+        val result = appAnalyzer.findTop10InstalledApps(googlePlayAppList)
         // then
         assertEquals(mutableListOf("Dinosaur Airport:Game for kids", "Crazy Pusher", "Baby Game for 2 3 4 Year Old", "Garage Master - games for kids",
             "Slice: Pizza Delivery-Pick Up"), result)
@@ -545,8 +563,10 @@ internal class AppAnalyzerTest {
         val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
 
         // when find the top installed apps name
-        val result = appAnalyzer.finedTop10InstalledApps(googlePlayAppList)
+        val result = appAnalyzer.findTop10InstalledApps(googlePlayAppList)
         // then
         assertNull(result)
     }
+
+    // endregion
 }

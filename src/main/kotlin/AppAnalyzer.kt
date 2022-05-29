@@ -3,7 +3,7 @@ import kotlin.math.roundToInt
 
 class AppAnalyzer {
 
-    // region functions finedAppDevelopedByGoogle
+    // region functions findAppDevelopedByGoogle
     /**
      * @param googleApp This is a list of GooglePlayApp object
      * @return This method returns a list of GooglePlayApp object specific count
@@ -14,7 +14,7 @@ class AppAnalyzer {
      * @see AppAnalyzer
      *
      */
-    fun finedAppDevelopedByGoogle(googleApp: MutableList<GooglePlayApp>): Int {
+    fun findAppDevelopedByGoogle(googleApp: MutableList<GooglePlayApp>): Int {
         var count = 0
         googleApp.forEach {
             if (it.company.contains("Google")) {
@@ -26,9 +26,11 @@ class AppAnalyzer {
 
     // endregion
 
-    fun finedPercentageOfMedicalApps(googleApp: MutableList<GooglePlayApp>): Double {
+    fun findPercentageOfMedicalApps(googleApp: MutableList<GooglePlayApp>): Double {
         var countofmedicalapp = 0
         var countofallapps = 0
+        if (googleApp.size == 0)
+            return  0.0
         googleApp.forEach {
             if (it.category.contains("Medical")) {
                 countofmedicalapp++
@@ -40,9 +42,9 @@ class AppAnalyzer {
 
     }
 
-    fun findOldestApp(googleApp: MutableList<GooglePlayApp>): String {
+    fun findOldestApp(googleApp: MutableList<GooglePlayApp>): String? {
         return if (googleApp.isEmpty()) {
-            "No apps found"
+            null
         } else {
             var oldestApp = googleApp[0]
             googleApp.forEach {
@@ -55,8 +57,10 @@ class AppAnalyzer {
     }
 
     //
-    fun finedPercentageOfAppRunningOnAndroid9AndUp(App_perc: MutableList<GooglePlayApp>): Double {
+    fun findPercentageOfAppRunningOnAndroid9AndUp(App_perc: MutableList<GooglePlayApp>): Double {
         var count = 0
+        if (App_perc.size == 0)
+            return 0.0
         App_perc.forEach {
             if (it.requiresAndroid.contains("9 and up")) {
                 count++
@@ -65,7 +69,7 @@ class AppAnalyzer {
         return (((count * 1.0 / App_perc.size) * 100) * 10).roundToInt() / 10.0
     }
 
-    fun finedLargest10App(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
+    fun findLargest10App(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
         val listOfAppName: MutableList<String> = mutableListOf()
         if (listOfGooglePlayApp.size > 9) {
             listOfGooglePlayApp.sortedByDescending { it.size }.subList(0, 10).forEach {
@@ -82,7 +86,7 @@ class AppAnalyzer {
     }
 
 
-    fun finedTop10InstalledApps(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
+    fun findTop10InstalledApps(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
         val listOfAppName: MutableList<String> = mutableListOf()
         if (listOfGooglePlayApp.size > 9) {
             listOfGooglePlayApp.sortedByDescending { it.installs }.subList(0, 10).forEach {
