@@ -57,11 +57,85 @@ internal class AppAnalyzerTest {
     }
 
     @Test
-    fun finedPercentageOfMedicalApp() {
+    fun should_Return100PercentageOfMedicalApps_When_HaveListOfApps() {
+        // given list of apps with 100% medical apps
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        googlePlayAppList.add(GooglePlayApp("Medical Mnemonics", "Regular Rate and Rhythm Software", "Medical",
+            LocalDate.parse("May 19 2011", DateTimeFormatter.ofPattern("MMMM d yyyy")), 0.362305,1000,
+            "1.6 and up"))
+        // when calculate percentage
+        val percentage = appAnalyzer.finedPercentageOfMedicalApps(googlePlayAppList)
+        // then check the result
+        assertEquals(100.0, percentage)
     }
 
     @Test
-    fun finedOldestApp() {
+    fun should_Return50PercentageOfMedicalApps_When_HaveListOfApps() {
+        // given list of apps with 50% medical apps
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        googlePlayAppList.add(GooglePlayApp("Medical Mnemonics", "Regular Rate and Rhythm Software", "Medical",
+            LocalDate.parse("May 19 2011", DateTimeFormatter.ofPattern("MMMM d yyyy")), 0.362305,1000,
+            "1.6 and up"))
+        googlePlayAppList.add(GooglePlayApp("FOX 4 Dallas-Fort Worth: Weather", "Fox Television Stations Inc.",
+            "Weather", LocalDate.parse("March 27 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")),
+            51.0,2000,"8.0 and up"))
+        // when calculate percentage
+        val percentage = appAnalyzer.finedPercentageOfMedicalApps(googlePlayAppList)
+        // then check the result
+        assertEquals(50.0, percentage)
+    }
+
+    @Test
+    fun should_ReturnZero_When_HaveListOfAppsWithOutMedicalApp() {
+        // given list of apps with zero medical apps
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        googlePlayAppList.add(GooglePlayApp("Medical Mnemonics", "Regular Rate and Rhythm Software", "Photography",
+            LocalDate.parse("May 19 2011", DateTimeFormatter.ofPattern("MMMM d yyyy")), 0.362305,1000,
+            "1.6 and up"))
+        googlePlayAppList.add(GooglePlayApp("FOX 4 Dallas-Fort Worth: Weather", "Fox Television Stations Inc.",
+            "Weather", LocalDate.parse("March 27 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")),
+            51.0,2000,"8.0 and up"))
+        // when calculate percentage
+        val percentage = appAnalyzer.finedPercentageOfMedicalApps(googlePlayAppList)
+        // then check the result
+        assertEquals(0.0, percentage)
+    }
+
+    @Test
+    fun should_ReturnOlderApp_When_HaveListWithApp() {
+        // given list contain one "Google" word
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        googlePlayAppList.add(GooglePlayApp("Medical Mnemonics", "Regular Rate and Rhythm Software", "Medical",
+            LocalDate.parse("May 19 2011", DateTimeFormatter.ofPattern("MMMM d yyyy")), 0.362305,1000,
+            "1.6 and up"))
+        // when calculate number of Apps
+        val olderApp = appAnalyzer.findOldestApp(googlePlayAppList)
+        // then check the result
+        assertEquals("Medical Mnemonics", olderApp)
+    }
+    @Test
+    fun should_ReturnOlderApp_When_HaveListWithAppMultiItems() {
+        // given list contain one "Google" word
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        googlePlayAppList.add(GooglePlayApp("Jewel Blast : Temple", "", "Puzzle",
+            LocalDate.parse("April 11 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")), 50.0,1000,
+            "4.4 and up"))
+        googlePlayAppList.add(GooglePlayApp("myAudi","Audi","Auto & Vehicles",
+            LocalDate.parse("May 10 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")),
+            53.0,1250,"8.0 and up"))
+        // when calculate number of Apps
+        val olderApp = appAnalyzer.findOldestApp(googlePlayAppList)
+        // then check the result
+        assertEquals("Jewel Blast : Temple", olderApp)
+    }
+    @Test
+    fun should_ReturnNullOlderApp_When_HaveListWithApp() {
+        // given list contain one "Google" word
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        // when calculate number of Apps
+        val olderApp = appAnalyzer.findOldestApp(googlePlayAppList)
+        // then check the result
+        assertEquals("No apps found",olderApp)
     }
 
     @Test
@@ -218,7 +292,7 @@ internal class AppAnalyzerTest {
 
     @Test
     fun should_ReturnNullValue_When_TheListOfAppsIsEmpty() {
-        // given list of google play apps have 5 element
+        // given empty list of google play apps
         val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
 
         // when find the top installed apps name

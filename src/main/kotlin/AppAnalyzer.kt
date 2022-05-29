@@ -1,4 +1,5 @@
 import model.GooglePlayApp
+import kotlin.math.roundToInt
 
 class AppAnalyzer {
 
@@ -13,7 +14,7 @@ class AppAnalyzer {
      * @see AppAnalyzer
      *
      */
-    fun finedAppDevelopedByGoogle(googleApp: MutableList<GooglePlayApp>): Int{
+    fun finedAppDevelopedByGoogle(googleApp: MutableList<GooglePlayApp>): Int {
         var count = 0
         googleApp.forEach {
             if (it.company.contains("Google")) {
@@ -22,54 +23,77 @@ class AppAnalyzer {
         }
         return count
     }
+
     // endregion
-        fun finedPercentageOfMedicalApps(googleApp: MutableList<GooglePlayApp>): Int {
-            var countofmedicalapp = 0
-            var countofallapps = 0
+
+    fun finedPercentageOfMedicalApps(googleApp: MutableList<GooglePlayApp>): Double {
+        var countofmedicalapp = 0
+        var countofallapps = 0
+        googleApp.forEach {
+            if (it.category.contains("Medical")) {
+                countofmedicalapp++
+            }
+            countofallapps++
+        }
+        return (((countofmedicalapp * 1.0 / countofallapps) * 100) * 10).roundToInt() / 10.0
+
+
+    }
+
+    fun findOldestApp(googleApp: MutableList<GooglePlayApp>): String {
+        return if (googleApp.isEmpty()) {
+            "No apps found"
+        } else {
+            var oldestApp = googleApp[0]
             googleApp.forEach {
-                if (it.category.contains("Medical")) {
-                    countofmedicalapp++
-                }
-                countofallapps++
-            }
-            return (countofmedicalapp/countofallapps)*100
-
-
-    }
-    fun finedOldestApp(){
-
-
-
-    }
-    fun finedPercentageOfAppRunningOnAndroid9AndUp(App_perc: MutableList<GooglePlayApp>): Int{
-            var count = 0
-            App_perc.forEach {
-                if (it.requiresAndroid.contains("9 and up")) {
-                    count++
+                if (it.updated < oldestApp.updated) {
+                    oldestApp = it
                 }
             }
-            return (App_perc.size/count)*100
-
-
+            oldestApp.appName
+        }
     }
-    fun finedLargest10App(){
 
-
-
+    //
+    fun finedPercentageOfAppRunningOnAndroid9AndUp(App_perc: MutableList<GooglePlayApp>): Double {
+        var count = 0
+        App_perc.forEach {
+            if (it.requiresAndroid.contains("9 and up")) {
+                count++
+            }
+        }
+        return (((count * 1.0 / App_perc.size) * 100) * 10).roundToInt() / 10.0
     }
-    fun finedTop10InstalledApps(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
+
+    fun finedLargest10App(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
         val listOfAppName: MutableList<String> = mutableListOf()
-        if(listOfGooglePlayApp.size > 9) {
-            listOfGooglePlayApp.sortedByDescending { it.installs }.subList(0, 10).forEach {
+        if (listOfGooglePlayApp.size > 9) {
+            listOfGooglePlayApp.sortedByDescending { it.size }.subList(0, 10).forEach {
+                listOfAppName.add(it.appName)
+            }
+        } else {
+            listOfGooglePlayApp.sortedByDescending { it.size }.forEach {
                 listOfAppName.add(it.appName)
             }
         }
-        else{
+        if (listOfAppName.size == 0)
+            return null
+        return listOfAppName
+    }
+
+
+    fun finedTop10InstalledApps(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
+        val listOfAppName: MutableList<String> = mutableListOf()
+        if (listOfGooglePlayApp.size > 9) {
+            listOfGooglePlayApp.sortedByDescending { it.installs }.subList(0, 10).forEach {
+                listOfAppName.add(it.appName)
+            }
+        } else {
             listOfGooglePlayApp.sortedByDescending { it.installs }.forEach {
                 listOfAppName.add(it.appName)
             }
         }
-        if(listOfAppName.size == 0)
+        if (listOfAppName.size == 0)
             return null
         return listOfAppName
     }
