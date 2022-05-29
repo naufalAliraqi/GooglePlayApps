@@ -139,8 +139,67 @@ internal class AppAnalyzerTest {
     }
 
     @Test
-    fun finedPercentageOfAppRunningOnAndroid9AndUp() {
+    fun should_ReturnZero_WhenNotAppSupportSystem9() {
+        //given
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        googlePlayAppList.add(GooglePlayApp("Jewel Blast : Temple", "", "Puzzle",
+            LocalDate.parse("April 11 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")), 50.0,1000,
+            "7 and up"))
+
+        //when
+        val percentage = finedPercentageOfAppRunningOnAndroid9AndUp()
+
+        //then
+        assertEquals(0, percentage)
     }
+
+    @Test
+    fun should_Return100_WhenAllAppsInSystem9() {
+        //given
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        googlePlayAppList.add(GooglePlayApp("Jewel Blast : Temple", "", "Puzzle",
+            LocalDate.parse("April 11 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")), 50.0,1000,
+            "9 and up"))
+
+        //when
+        val percentage = finedPercentageOfAppRunningOnAndroid9AndUp()
+
+        //then
+        assertEquals(100, percentage)
+    }
+
+    @Test
+    fun should_Returnfifty_When_halfAppsSupportSystem9() {
+        //given
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+        googlePlayAppList.add(GooglePlayApp("Jewel Blast : Temple", "", "Puzzle",
+            LocalDate.parse("April 11 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")), 50.0,1000,
+            "7 and up"))
+
+        googlePlayAppList.add(GooglePlayApp("Jewel Blast : Temple", "", "Puzzle",
+            LocalDate.parse("April 11 2022", DateTimeFormatter.ofPattern("MMMM d yyyy")), 50.0,1000,
+            "9 and up"))
+
+        //when
+        val percentage = finedPercentageOfAppRunningOnAndroid9AndUp()
+
+        //then
+        assertEquals(50, percentage)
+    }
+
+    @Test
+    fun should_ReturnZero_When_ListEmpty() {
+        //given
+        val googlePlayAppList : MutableList<GooglePlayApp> = mutableListOf()
+
+        //when
+        val percentage = finedPercentageOfAppRunningOnAndroid9AndUp()
+
+        //then
+        assertEquals(0, percentage)
+    }
+
+
 
     @Test
     fun finedLargest10App() {
