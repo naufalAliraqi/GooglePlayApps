@@ -1,104 +1,62 @@
-import model.GooglePlayApp
+import model.App
 import kotlin.math.roundToInt
 
 class AppAnalyzer {
 
-    // region functions findAppDevelopedByGoogle
-    /**
-     * @param googleApp This is a list of GooglePlayApp object
-     * @return This method returns a list of GooglePlayApp object specific count
-     * @author omar izziddeen
-     * @version 1.0
-     * @since 2022-05-26
-     * @see GooglePlayApp
-     * @see AppAnalyzer
-     *
-     */
-    fun findAppDevelopedByGoogle(googleApp: MutableList<GooglePlayApp>): Int {
-        var count = 0
-        googleApp.forEach {
-            if (it.company.contains("Google")) {
-                count++
-            }
-        }
-        return count
+    fun findAppDevelopedByGivenCompany(app: MutableList<App>, companyName:String): Int {
+       return app.count { it.company.contains(companyName,true) }
     }
 
-    // endregion
-
-    fun findPercentageOfMedicalApps(googleApp: MutableList<GooglePlayApp>): Double {
-        var countofmedicalapp = 0
-        var countofallapps = 0
-        if (googleApp.size == 0)
+    fun findPercentageOfAppsByCategory(apps: MutableList<App>, categoryName:String): Double {
+        if (apps.isEmpty())
             return  0.0
-        googleApp.forEach {
-            if (it.category.contains("Medical")) {
-                countofmedicalapp++
-            }
-            countofallapps++
-        }
-        return (((countofmedicalapp * 1.0 / countofallapps) * 100) * 10).roundToInt() / 10.0
-
-
+        val counterbalance = apps.count { it.category.contains(categoryName,true) }
+        return (((counterbalance * 1.0 / apps.size) * 100) * 10).roundToInt() / 10.0
     }
 
-    fun findOldestApp(googleApp: MutableList<GooglePlayApp>): String? {
-        return if (googleApp.isEmpty()) {
-            null
-        } else {
-            var oldestApp = googleApp[0]
-            googleApp.forEach {
-                if (it.updated < oldestApp.updated) {
-                    oldestApp = it
-                }
-            }
-            oldestApp.appName
-        }
+    fun findOldestApp(apps: MutableList<App>): App? {
+        return if (apps.isNotEmpty()) {
+            apps.minByOrNull { it.updated }}
+                else null
     }
 
-    //
-    fun findPercentageOfAppRunningOnAndroid9AndUp(App_perc: MutableList<GooglePlayApp>): Double {
-        var count = 0
-        if (App_perc.size == 0)
-            return 0.0
-        App_perc.forEach {
-            if (it.requiresAndroid.contains("9 and up")) {
-                count++
-            }
-        }
-        return (((count * 1.0 / App_perc.size) * 100) * 10).roundToInt() / 10.0
+    fun findPercentageOfAppRunningOnSpecificAndroid(apps: MutableList<App>, androidVersion:Double): Double {
+        if (apps.isEmpty())
+            return -1.0
+        val count = apps.count { it.requiresAndroid == androidVersion}
+        return (((count * 1.0 / apps.size) * 100) * 10).roundToInt() / 10.0
     }
 
-    fun findLargest10App(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
-        val listOfAppName: MutableList<String> = mutableListOf()
-        if (listOfGooglePlayApp.size > 9) {
-            listOfGooglePlayApp.sortedByDescending { it.size }.subList(0, 10).forEach {
-                listOfAppName.add(it.appName)
-            }
-        } else {
-            listOfGooglePlayApp.sortedByDescending { it.size }.forEach {
-                listOfAppName.add(it.appName)
-            }
-        }
-        if (listOfAppName.size == 0)
+    fun findLargestApps(app: MutableList<App>,rankSize:Int): MutableList<App>? {
+        val listOfApp: MutableList<App> = mutableListOf()
+        if (listOfApp.isEmpty())
             return null
-        return listOfAppName
+
+        if (app.size > rankSize) {
+            app.sortedByDescending { it.size }.subList(0, rankSize).forEach {
+                listOfApp.add(it)
+            }
+        } else {
+            app.sortedByDescending { it.size }.forEach {
+                listOfApp.add(it)
+            }
+        }
+        return listOfApp
     }
 
-
-    fun findTop10InstalledApps(listOfGooglePlayApp: MutableList<GooglePlayApp>): MutableList<String>? {
-        val listOfAppName: MutableList<String> = mutableListOf()
-        if (listOfGooglePlayApp.size > 9) {
-            listOfGooglePlayApp.sortedByDescending { it.installs }.subList(0, 10).forEach {
-                listOfAppName.add(it.appName)
+    fun findTopNumberInstalledApps(listOfGooglePlayApp: MutableList<App>, topNumber:Int): MutableList<App>? {
+        val listOfApp: MutableList<App> = mutableListOf()
+        if (listOfGooglePlayApp.size > topNumber) {
+            listOfGooglePlayApp.sortedByDescending { it.installs }.subList(0, topNumber).forEach {
+                listOfApp.add(it)
             }
         } else {
             listOfGooglePlayApp.sortedByDescending { it.installs }.forEach {
-                listOfAppName.add(it.appName)
+                listOfApp.add(it)
             }
         }
-        if (listOfAppName.size == 0)
+        if (listOfApp.size == 0)
             return null
-        return listOfAppName
+        return listOfApp
     }
 }
