@@ -1,11 +1,7 @@
-import model.App
 import org.junit.jupiter.api.Test
 
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class AppAnalyzerTest {
@@ -64,6 +60,50 @@ internal class AppAnalyzerTest {
     fun should_ReturnNull_When_AppListIsNull() {
     }
 
+    /*
+    * Point 2: The percentage of medical apps.
+    * No. of test cases: 10
+    * */
+
+    @Test // 2-1
+    fun should_ReturnPercentageOfGivenCategory_When_AppListIsNotEmpty() {
+    }
+
+    @Test // 2-2
+    fun should_ReturnPercentageOfGivenCategory_When_CategoryContainsSpaces() {
+    }
+
+    @Test // 2-3
+    fun should_ReturnPercentageOfGivenCategory_When_CategoryContainsDots() {
+    }
+
+    @Test // 2-4
+    fun should_ReturnPercentageOfGivenCategory_When_CategoryInUpperCase() {
+    }
+
+    @Test // 2-5
+    fun should_ReturnPercentageOfGivenCategory_When_CategoryInMixedCase() {
+    }
+
+    @Test // 2-6
+    fun should_ReturnNullOfCategory_When_AppListIsEmpty() {
+    }
+
+    @Test // 2-7
+    fun should_ReturnNullOfCategory_When_AppListIsNull() {
+    }
+
+    @Test // 2-8
+    fun should_ReturnNullOfCategory_When_CategoryIsEmpty() {
+    }
+
+    @Test // 2-9
+    fun should_ReturnNullOfCategory_When_AppDoseNotHaveCategory() {
+    }
+
+    @Test // 2-10
+    fun should_ReturnZeroOfCategory_When_CategoryIsNotFound() {
+    }
 
 
 //
