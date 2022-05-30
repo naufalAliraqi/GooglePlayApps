@@ -60,6 +60,10 @@ internal class AppAnalyzerTest {
     fun should_ReturnNull_When_AppListIsNull() {
     }
 
+    @Test // 1-9
+    fun should_ReturnNull_When_AppDoseNotHaveCompanyField() {
+    }
+
     /*
     * Point 2: The percentage of medical apps.
     * No. of test cases: 10
