@@ -1,62 +1,41 @@
 import model.App
+import utilities.calculatePercentage
 import kotlin.math.roundToInt
 
 class AppAnalyzer {
 
-    fun findAppDevelopedByGivenCompany(app: MutableList<App>, companyName:String): Int {
-       return app.count { it.company.contains(companyName,true) }
-    }
+    //Refactor
+    fun findAppDevelopedByGivenCompany(apps: List<App>, companyName: String?): Int =
+        apps.count { app: App -> app.company.contains(companyName ?: "", true) }
 
-    fun findPercentageOfAppsByCategory(apps: MutableList<App>, categoryName:String): Double {
-        if (apps.isEmpty())
-            return  0.0
-        val counterbalance = apps.count { it.category.contains(categoryName,true) }
-        return (((counterbalance * 1.0 / apps.size) * 100) * 10).roundToInt() / 10.0
-    }
+    //Refactor
+    fun findPercentageOfAppsByCategory(apps: List<App>, categoryName: String): Double? =
+        if (apps.isNotEmpty() && categoryName.isNotEmpty()) {
+            apps.count { it.category.contains(categoryName.trim(), true) }.calculatePercentage(apps.size) }
+        else {null}
 
-    fun findOldestApp(apps: MutableList<App>): App? {
-        return if (apps.isNotEmpty()) {
-            apps.minByOrNull { it.updated }}
-                else null
-    }
+    //Refactor
+    fun findOldestApp(apps: List<App>): App? =
+        if (apps.isNotEmpty()) { apps.minByOrNull { selector -> selector.updated } }
+        else { null }
 
-    fun findPercentageOfAppRunningOnSpecificAndroid(apps: MutableList<App>, androidVersion:Double): Double {
-        if (apps.isEmpty())
-            return -1.0
-        val count = apps.count { it.requiresAndroid == androidVersion}
-        return (((count * 1.0 / apps.size) * 100) * 10).roundToInt() / 10.0
-    }
+    //Refactor
+    fun findPercentageOfAppRunningOnSpecificAndroid(apps: List<App>, version: Double): Double? =
+        apps.count { count-> count.requiresAndroid != null && count.requiresAndroid == version }.calculatePercentage(apps.size)
 
-    fun findLargestApps(app: MutableList<App>,rankSize:Int): MutableList<App>? {
-        val listOfApp: MutableList<App> = mutableListOf()
-        if (listOfApp.isEmpty())
-            return null
 
-        if (app.size > rankSize) {
-            app.sortedByDescending { it.size }.subList(0, rankSize).forEach {
-                listOfApp.add(it)
-            }
-        } else {
-            app.sortedByDescending { it.size }.forEach {
-                listOfApp.add(it)
-            }
-        }
-        return listOfApp
-    }
+    // I can't refactor this function more than that😦😦😦😦 sorrrrrrrrrrrrrrrrrrrrrry
+    fun findLargestApps(app: MutableList<App>,rankSize:Int?): List<App>? =
+        app.asSequence().sortedByDescending { sortedData-> sortedData.size }.map {app-> app }.take(rankSize?:0).toList()?:null
 
-    fun findTopNumberInstalledApps(listOfGooglePlayApp: MutableList<App>, topNumber:Int): MutableList<App>? {
-        val listOfApp: MutableList<App> = mutableListOf()
-        if (listOfGooglePlayApp.size > topNumber) {
-            listOfGooglePlayApp.sortedByDescending { it.installs }.subList(0, topNumber).forEach {
-                listOfApp.add(it)
-            }
-        } else {
-            listOfGooglePlayApp.sortedByDescending { it.installs }.forEach {
-                listOfApp.add(it)
-            }
-        }
-        if (listOfApp.size == 0)
-            return null
-        return listOfApp
-    }
+    //Replace
+    fun topAppInstall(apps: List<App>, size: Int?): List<String>? =
+        if (apps.isNotEmpty()) {
+            apps.asSequence()
+                .sortedByDescending { dataSorted -> dataSorted.installs }
+                .map { data -> data.appName }
+                .take(size ?: 0)
+                .toList() }
+        else { null }
+
 }
