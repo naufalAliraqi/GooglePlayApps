@@ -26,7 +26,7 @@ internal class AppAnalyzerTest {
 
     /*
     * Point 1: The apps that have been developed by Google.
-    * No. of test cases: 8
+    * No. of test cases: 9
     * */
 
     @Test // 1-1
@@ -46,23 +46,23 @@ internal class AppAnalyzerTest {
     }
 
     @Test // 1-5
-    fun should_ReturnNull_When_CompanyNameNotFound() {
+    fun should_ReturnNullOfAppsDevelopedByGoogle_When_CompanyNameIsNotFound() {
     }
 
     @Test // 1-6
-    fun should_ReturnNull_When_CompanyNameIsEmpty() {
+    fun should_ReturnNullOfAppsDevelopedByGoogle_When_CompanyNameIsEmpty() {
     }
 
     @Test // 1-7
-    fun should_ReturnNull_When_AppListIsEmpty() {
+    fun should_ReturnNullOfAppsDevelopedByGoogle_When_AppListIsEmpty() {
     }
 
     @Test // 1-8
-    fun should_ReturnNull_When_AppListIsNull() {
+    fun should_ReturnNullOfAppsDevelopedByGoogle_When_AppListIsNull() {
     }
 
     @Test // 1-9
-    fun should_ReturnNull_When_AppDoseNotHaveCompanyField() {
+    fun should_ReturnNullOfAppsDevelopedByGoogle_When_AppDoseNotHaveCompanyField() {
     }
 
     /*
