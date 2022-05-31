@@ -98,12 +98,12 @@ internal class AppAnalyzerTest {
 
     /*
     * Points That Will Be Tested:
-    * 1. The apps that have been developed by Google.
-    * 2. The percentage of medical apps.
+    * 1. The apps that have been developed by Company.
+    * 2. The percentage of category.
     * 3. The oldest app.
-    * 4. The percentage of apps running on android 9 or above.
-    * 5. The largest 10 apps by size.
-    * 6. The top 10 installed apps.
+    * 4. The percentage of apps running on android specific version.
+    * 5. The largest apps by size.
+    * 6. The top installed apps.
     *
     * Note: The (1-5 .. etc) that are below refers to:
     * left side is the point that will be tested.
@@ -111,7 +111,7 @@ internal class AppAnalyzerTest {
     * */
 
     /*
-    * Point 1: The apps that have been developed by Google.
+    * Point 1: The apps that have been developed by Company.
     * No. of test cases: 9
     * TODO: Move the body of functions that already implemented in the fork and replace it with the new one if needed.
     * */
@@ -216,7 +216,7 @@ internal class AppAnalyzerTest {
     }
 
     /*
-    * Point 2: The percentage of medical apps.
+    * Point 2: The percentage of category.
     * No. of test cases: 9
     * */
 
@@ -365,12 +365,12 @@ internal class AppAnalyzerTest {
     }
 
     /*
-    * Point 4: The percentage of apps running on android 9 or above.
-    * No. of test cases: 4
+    * Point 4: The percentage of apps running on android specific version.
+    * No. of test cases: 7
     * */
 
     @Test // 4-1 // already in fork
-    fun should_ReturnPercentageOfAppsRunningOnAndroidSpecificVersion_When_ValidAppListAndInput() {
+    fun should_ReturnPercentageOfAppsRunningOnAndroidSpecificVersion_When_ValidAppListAndVersion() {
         // given a list of apps.
         apps = setList()
         // when the app list is valid and android version is valid.
@@ -380,7 +380,18 @@ internal class AppAnalyzerTest {
         assertEquals(50.0, result)
     }
 
-    @Test // 4-2 // already in fork
+    @Test // 4-2
+    fun should_ReturnPercentageOfAppsRunningOnAndroidSpecificVersion_When_AndroidVersionIsPositive() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid and version is positive.
+        val version = +9.0
+        val result = appAnalyzer.findPercentageOfAppRunningOnSpecificAndroid(apps, version)
+        // then check the percentage of apps running on specific android version.
+        assertEquals(50.0, result)
+    }
+
+    @Test // 4-3 // already in fork
     fun should_ReturnZero_When_AndroidSpecificVersionIsNotFound() {
         // given a list of apps.
         apps = setList()
@@ -391,7 +402,7 @@ internal class AppAnalyzerTest {
         assertEquals(0.0, result)
     }
 
-    @Test // 4-3 // already in fork
+    @Test // 4-4 // already in fork
     fun should_ReturnNullOfPercentage_When_AppListIsEmpty() {
         // given an empty list of apps.
         apps = mutableListOf()
@@ -402,7 +413,7 @@ internal class AppAnalyzerTest {
         assertNull(result)
     }
 
-    @Test // 4-4
+    @Test // 4-5
     fun should_ReturnNullOfPercentage_When_AppListIsNull() {
         // given a null list of apps.
         apps
@@ -413,9 +424,32 @@ internal class AppAnalyzerTest {
         assertNull(result)
     }
 
+    @Test // 4-6
+    fun should_ReturnNullOfPercentage_When_AndroidVersionIsZero() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid and version is zero.
+        val version = 0.0
+        val result = appAnalyzer.findPercentageOfAppRunningOnSpecificAndroid(apps, version)
+        // then check the percentage of apps running on specific android version.
+        assertNull(result)
+    }
+
+    @Test // 4-7
+    fun should_ReturnNullOfPercentage_When_AndroidVersionIsNegative() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid and version is negative.
+        val version = -9.0
+        val result = appAnalyzer.findPercentageOfAppRunningOnSpecificAndroid(apps, version)
+        // then check the percentage of apps running on specific android version.
+        assertNull(result)
+    }
+
+
     /*
-    * Point 5: The largest 10 apps by size.
-    * No. of test cases: 4
+    * Point 5: The largest apps by size.
+    * No. of test cases: 6
     * */
 
     @Test // 5-1 // already in fork
@@ -464,9 +498,31 @@ internal class AppAnalyzerTest {
         assertNull(result)
     }
 
+    @Test // 5-5
+    fun should_ReturnNullOfLargestApps_When_RangeIsZero() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid and range is zero.
+        val range = 0
+        val result = appAnalyzer.findLargestApps(apps, range)
+        // then check the largest apps in the list.
+        assertNull(result)
+    }
+
+    @Test // 5-6
+    fun should_ReturnNullOfLargestApps_When_RangeIsNegative() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid and range is negative.
+        val range = -3
+        val result = appAnalyzer.findLargestApps(apps, range)
+        // then check the largest apps in the list.
+        assertNull(result)
+    }
+
     /*
-    * Point 6: The top 10 installed apps.
-    * No. of test cases: 4
+    * Point 6: The top installed apps.
+    * No. of test cases: 6
     * */
 
     @Test // 6-1 // already in fork
@@ -513,5 +569,28 @@ internal class AppAnalyzerTest {
         // then check the top number of installed apps in the list.
         assertNull(result)
     }
+
+    @Test // 6-5
+    fun should_ReturnNullOfTopInstallApps_When_RangeIsNegative() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid and range is negative.
+        val range = -2
+        val result = appAnalyzer.findTopNumberInstalledApps(apps, range)
+        // then check the top number of installed apps in the list.
+        assertNull(result)
+    }
+
+    @Test // 6-6
+    fun should_ReturnNullOfTopInstallApps_When_RangeIsZero() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid and range is zero.
+        val range = 0
+        val result = appAnalyzer.findTopNumberInstalledApps(apps, range)
+        // then check the top number of installed apps in the list.
+        assertNull(result)
+    }
+
 
 }
