@@ -466,27 +466,52 @@ internal class AppAnalyzerTest {
 
     /*
     * Point 6: The top 10 installed apps.
-    * No. of test cases: 5
+    * No. of test cases: 4
     * */
 
-    @Test // 6-1
-    fun should_ReturnTop10InstalledApps_When_ValidAppList() {
+    @Test // 6-1 // already in fork
+    fun should_ReturnTopInstallApps_When_ValidAppListAndRange() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid and range is valid.
+        val range = 2
+        val result = appAnalyzer.findTopNumberInstalledApps(apps, range)
+        // then check the top number of installed apps in the list.
+        val expectedResult = mutableListOf(apps[googleFilesAppIndex], apps[bookAppIndex])
+        assertEquals(expectedResult, result)
     }
 
-    @Test // 6-2
-    fun should_ReturnTopXInstalledApps_When_AppListSizeIsBetween0And9() {
+    @Test // 6-2 // already in fork
+    fun should_ReturnNull_When_AppListIsEmpty() {
+        // given an empty list of apps.
+        apps = mutableListOf()
+        // when the app list is empty and range is valid.
+        val range = 1
+        val result = appAnalyzer.findTopNumberInstalledApps(apps, range)
+        // then check the top number of installed apps in the list.
+        assertNull(result)
     }
 
-    @Test // 6-3
-    fun should_ReturnNullOfTop10InstalledApps_When_AppListIsEmpty() {
+    @Test // 6-3 // already in fork
+    fun should_ReturnNullOfTopInstallApps_When_RangeIsBiggerThanAppListSize() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid and range is bigger than the size of the list.
+        val range = apps.size + 1
+        val result = appAnalyzer.findTopNumberInstalledApps(apps, range)
+        // then check the top number of installed apps in the list.
+        assertNull(result)
     }
 
     @Test // 6-4
-    fun should_ReturnNullOfTop10InstalledApps_When_AppListIsNull() {
-    }
-
-    @Test // 6-5
-    fun should_ReturnNullOfTop10InstalledApps_When_AppDoseNotHaveInstallsField() {
+    fun should_ReturnNullOfTopInstallApps_When_AppListIsNull() {
+        // given a null list of apps.
+        apps
+        // when the app list is null and range is valid.
+        val range = 1
+        val result = appAnalyzer.findTopNumberInstalledApps(apps, range)
+        // then check the top number of installed apps in the list.
+        assertNull(result)
     }
 
 
