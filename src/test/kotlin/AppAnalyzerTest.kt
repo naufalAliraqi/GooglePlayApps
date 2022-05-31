@@ -109,6 +109,33 @@ internal class AppAnalyzerTest {
     fun should_ReturnZeroOfCategory_When_CategoryIsNotFound() {
     }
 
+    /*
+    * Point 3: The oldest app.
+    * No. of test cases: 5
+    * */
+
+    @Test // 3-1
+    fun should_ReturnOldestApp_When_ValidAppList() {
+    }
+
+    @Test // 3-2
+    fun should_ReturnMultiOldestApp_When_TowOrMoreAppsHaveSameOldestDate() {
+    }
+
+    @Test // 3-3
+    fun should_ReturnNullOfOldestApp_When_AppListIsEmpty() {
+    }
+
+    @Test // 3-4
+    fun should_ReturnNullOfOldestApp_When_AppListIsNull() {
+    }
+
+    @Test // 3-5
+    fun should_ReturnNullOfOldestApp_When_AppDoseNotHavePublishedDate() {
+    }
+
+
+
 
 //
 //    // region test functions for findAppDevelopedByGoogle function
