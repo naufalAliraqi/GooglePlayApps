@@ -12,6 +12,9 @@ fun stringToDate(value: String): LocalDate {
     return LocalDate.parse(value, DateTimeFormatter.ofPattern(Constant.DATE_FORMAT))
 }
 
+fun Int.calculatePercentage(divisor:Int):Double? =
+    if (divisor!=0){ String.format("%.1f", 100.0 * this.div(divisor.toDouble())).toDouble() } else { null }
+
 // convert from GB or KB to MB
 fun megaByteConverter(value: String): Double {
     var size = 0.0
