@@ -1,15 +1,15 @@
 package model
 
-import java.time.LocalDate
+import java.util.*
 
 data class App(
     var appName: String,
     var company: String,
     var category: String,
-    var updated: LocalDate,
-    var size: Double,
+    var updated: Date,
+    var size: Long?,
     var installs: Long,
     var requiresAndroid: Double?,
 ){
-    override fun toString() = "App Name is: $appName"
+    override fun toString() =  appName
 }

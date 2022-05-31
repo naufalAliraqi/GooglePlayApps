@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.TestInstance
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class AppAnalyzerTest {
@@ -43,8 +44,8 @@ internal class AppAnalyzerTest {
                 appName = "Book",
                 company = "Amazon",
                 category = "Libraries & Demo",
-                updated = LocalDate.parse("Jan 5 2000", DateTimeFormatter.ofPattern("MMMM d yyyy")),
-                size = 1500.0,
+                updated = Date(2000,5,1) ,
+                size = 1500,
                 installs = 500000,
                 requiresAndroid = 4.4
 
@@ -55,8 +56,8 @@ internal class AppAnalyzerTest {
                 appName = "AD",
                 company = "Amazon",
                 category = "Libraries & Demo",
-                updated = LocalDate.parse("Jan 1 2020", DateTimeFormatter.ofPattern("MMMM d yyyy")),
-                size = 30000.0,
+                updated = Date(2020,1,1),
+                size = 30000,
                 installs = 30,
                 requiresAndroid = 9.0
             )
@@ -66,8 +67,8 @@ internal class AppAnalyzerTest {
                 appName = "Google Photo",
                 company = "Google",
                 category = "Libraries & Demo",
-                updated = LocalDate.parse("Jan 2 2000", DateTimeFormatter.ofPattern("MMMM d yyyy")),
-                size = 50000.0,
+                updated = Date(2000,1,2),
+                size = 50000,
                 installs = 500,
                 requiresAndroid = 6.0
             )
@@ -77,8 +78,8 @@ internal class AppAnalyzerTest {
                 appName = "Google Files",
                 company = "Google",
                 category = "Medical",
-                updated = LocalDate.parse("Jan 2 2000", DateTimeFormatter.ofPattern("MMMM d yyyy")),
-                size = 5000.0,
+                updated = Date(2000,1,2),
+                size = 5000,
                 installs = 1000000,
                 requiresAndroid = 9.0
             )
@@ -531,7 +532,7 @@ internal class AppAnalyzerTest {
         apps = setList()
         // when the app list is valid and range is valid.
         val range = 2
-        val result = appAnalyzer.findTopNumberInstalledApps(apps, range)
+        val result = appAnalyzer.topAppInstall(apps, range)
         // then check the top number of installed apps in the list.
         val expectedResult = mutableListOf(apps[googleFilesAppIndex], apps[bookAppIndex])
         assertEquals(expectedResult, result)
@@ -543,7 +544,7 @@ internal class AppAnalyzerTest {
         apps = mutableListOf()
         // when the app list is empty and range is valid.
         val range = 1
-        val result = appAnalyzer.findTopNumberInstalledApps(apps, range)
+        val result = appAnalyzer.topAppInstall(apps, range)
         // then check the top number of installed apps in the list.
         assertNull(result)
     }
@@ -554,7 +555,7 @@ internal class AppAnalyzerTest {
         apps = setList()
         // when the app list is valid and range is bigger than the size of the list.
         val range = apps.size + 1
-        val result = appAnalyzer.findTopNumberInstalledApps(apps, range)
+        val result = appAnalyzer.topAppInstall(apps, range)
         // then check the top number of installed apps in the list.
         assertNull(result)
     }
@@ -565,7 +566,7 @@ internal class AppAnalyzerTest {
         apps
         // when the app list is null and range is valid.
         val range = 1
-        val result = appAnalyzer.findTopNumberInstalledApps(apps, range)
+        val result = appAnalyzer.topAppInstall(apps, range)
         // then check the top number of installed apps in the list.
         assertNull(result)
     }
@@ -576,7 +577,7 @@ internal class AppAnalyzerTest {
         apps = setList()
         // when the app list is valid and range is negative.
         val range = -2
-        val result = appAnalyzer.findTopNumberInstalledApps(apps, range)
+        val result = appAnalyzer.topAppInstall(apps, range)
         // then check the top number of installed apps in the list.
         assertNull(result)
     }
@@ -587,7 +588,7 @@ internal class AppAnalyzerTest {
         apps = setList()
         // when the app list is valid and range is zero.
         val range = 0
-        val result = appAnalyzer.findTopNumberInstalledApps(apps, range)
+        val result = appAnalyzer.topAppInstall(apps, range)
         // then check the top number of installed apps in the list.
         assertNull(result)
     }

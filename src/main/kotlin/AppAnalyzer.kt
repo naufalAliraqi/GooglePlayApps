@@ -23,19 +23,22 @@ class AppAnalyzer {
     fun findPercentageOfAppRunningOnSpecificAndroid(apps: List<App>, version: Double): Double? =
         apps.count { count-> count.requiresAndroid != null && count.requiresAndroid == version }.calculatePercentage(apps.size)
 
-
-    // I can't refactor this function more than that😦😦😦😦 sorrrrrrrrrrrrrrrrrrrrrry
-    fun findLargestApps(app: MutableList<App>,rankSize:Int?): List<App>? =
-        app.asSequence().sortedByDescending { sortedData-> sortedData.size }.map {app-> app }.take(rankSize?:0).toList()?:null
+    //Refactor
+    fun findLargestApps(app: List<App>,rankSize:Int): List<App>? {
+        if (app.isEmpty()||rankSize> app.size)
+            return null
+        return app.sortedByDescending { it.size }.toList().take(rankSize)
+    }
 
     //Replace
-    fun topAppInstall(apps: List<App>, size: Int?): List<String>? =
-        if (apps.isNotEmpty()) {
+    fun topAppInstall(apps: List<App>, size: Int?): List<String>? {
+       return if (apps.isNotEmpty()) {
             apps.asSequence()
                 .sortedByDescending { dataSorted -> dataSorted.installs }
                 .map { data -> data.appName }
                 .take(size ?: 0)
                 .toList() }
         else { null }
+    }
 
 }

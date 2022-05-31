@@ -10,7 +10,7 @@ object Constant  {
         const val INSTALLS = 5
         const val REQUIRED_ANDROID = 7
     }
-
+    const val KILO_BYTE = 1024.0
     const val FILE_NAME = "google_play.csv"
     const val DATE_FORMAT = "MMMM d yyyy"
 }
