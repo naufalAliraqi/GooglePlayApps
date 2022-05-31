@@ -359,27 +359,51 @@ internal class AppAnalyzerTest {
 
     /*
     * Point 4: The percentage of apps running on android 9 or above.
-    * No. of test cases: 5
+    * No. of test cases: 4
     * */
 
-    @Test // 4-1
-    fun should_ReturnPercentageOfAppsRunningOnAndroid9OrAbove_When_ValidAppList() {
+    @Test // 4-1 // already in fork
+    fun should_ReturnPercentageOfAppsRunningOnAndroidSpecificVersion_When_ValidAppListAndInput() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid and android version is valid.
+        val version = 9.0
+        val result = appAnalyzer.findPercentageOfAppRunningOnSpecificAndroid(apps, version)
+        // then check the percentage of apps running on specific android version.
+        assertEquals(50.0, result)
     }
 
-    @Test // 4-2
-    fun should_ReturnZero_When_NoAppsRunningOnAndroid9OrAbove() {
+    @Test // 4-2 // already in fork
+    fun should_ReturnZero_When_AndroidSpecificVersionIsNotFound() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid and version is not found.
+        val version = 14.0
+        val result = appAnalyzer.findPercentageOfAppRunningOnSpecificAndroid(apps, version)
+        // then check the percentage of apps running on specific android version.
+        assertEquals(0.0, result)
     }
 
-    @Test // 4-3
+    @Test // 4-3 // already in fork
     fun should_ReturnNullOfPercentage_When_AppListIsEmpty() {
+        // given an empty list of apps.
+        apps = mutableListOf()
+        // when the app list is empty and version is valid.
+        val version = 9.0
+        val result = appAnalyzer.findPercentageOfAppRunningOnSpecificAndroid(apps, version)
+        // then check the percentage of apps running on specific android version.
+        assertNull(result)
     }
 
     @Test // 4-4
     fun should_ReturnNullOfPercentage_When_AppListIsNull() {
-    }
-
-    @Test // 4-5
-    fun should_ReturnZeroOfPercentage_When_AppDoseNotHaveOsVersion() {
+        // given a null list of apps.
+        apps
+        // when the app list is null and version is valid.
+        val version = 9.0
+        val result = appAnalyzer.findPercentageOfAppRunningOnSpecificAndroid(apps, version)
+        // then check the percentage of apps running on specific android version.
+        assertNull(result)
     }
 
     /*
