@@ -87,6 +87,16 @@ internal class AppAnalyzerTest {
     }
 
     /*
+    * Indexes of the app list that define above.
+    * We will use these indexes instead of the magic numbers.
+    * */
+    private val bookAppIndex = 0
+    private val adAppIndex = 1
+    private val googlePhotoAppIndex = 2
+    private val googleFilesAppIndex = 3
+
+
+    /*
     * Points That Will Be Tested:
     * 1. The apps that have been developed by Google.
     * 2. The percentage of medical apps.
@@ -321,7 +331,6 @@ internal class AppAnalyzerTest {
         // when the app list is valid.
         val result = appAnalyzer.findOldestApp(apps)
         // then check the oldest app in the list , which is the Google Photo app.
-        val googlePhotoAppIndex = 2
         assertEquals(apps[googlePhotoAppIndex], result)
     }
 
@@ -332,8 +341,6 @@ internal class AppAnalyzerTest {
         // when the app list is valid.
         val result = appAnalyzer.findOldestApp(apps)
         // then check the oldest app in the list , which is the Google Photo & Google files.
-        val googlePhotoAppIndex = 2
-        val googleFilesAppIndex = 3
         assertEquals(mutableListOf(apps[googlePhotoAppIndex], apps[googleFilesAppIndex]), result)
     }
 
@@ -408,27 +415,53 @@ internal class AppAnalyzerTest {
 
     /*
     * Point 5: The largest 10 apps by size.
-    * No. of test cases: 5
+    * No. of test cases: 4
     * */
 
-    @Test // 5-1
-    fun should_ReturnLargest10Apps_When_ValidAppList() {
+    @Test // 5-1 // already in fork
+    fun should_ReturnLargestApps_When_ValidAppListAndRange() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid and range is valid.
+        val range = 4
+        val result = appAnalyzer.findLargestApps(apps, range)
+        // then check the largest apps in the list.
+        val expectedResult =
+            mutableListOf(apps[googlePhotoAppIndex], apps[adAppIndex], apps[bookAppIndex], apps[googleFilesAppIndex])
+        assertEquals(expectedResult, result)
     }
 
-    @Test // 5-2
-    fun should_ReturnLargestXApps_When_AppListSizeIsBetween0And9() {
+    @Test // 5-2 // already in fork
+    fun should_ReturnNull_When_RangeIsBiggerThanAppListSize() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid and range is bigger than the size of the list.
+        val range = apps.size + 1
+        val result = appAnalyzer.findLargestApps(apps, range)
+        // then check the largest apps in the list.
+        assertNull(result)
     }
 
-    @Test // 5-3
-    fun should_ReturnNullOfLargest10Apps_When_AppListIsEmpty() {
+    @Test // 5-3 // already in fork
+    fun should_ReturnNullOfLargestApps_When_AppListIsEmpty() {
+        // given an empty list of apps.
+        apps = mutableListOf()
+        // when the app list is empty and range is valid.
+        val range = 1
+        val result = appAnalyzer.findLargestApps(apps, range)
+        // then check the largest apps in the list.
+        assertNull(result)
     }
 
     @Test // 5-4
-    fun should_ReturnNullOfLargest10Apps_When_AppListIsNull() {
-    }
-
-    @Test // 5-5
-    fun should_ReturnNullOfLargest10Apps_When_AppDoseNotHaveSizeField() {
+    fun should_ReturnNullOfLargestApps_When_AppListIsNull() {
+        // given a null list of apps.
+        apps
+        // when the app list is null and range is valid.
+        val range = 1
+        val result = appAnalyzer.findLargestApps(apps, range)
+        // then check the largest apps in the list.
+        assertNull(result)
     }
 
     /*
