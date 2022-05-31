@@ -1,4 +1,5 @@
 import model.App
+import utilities.calculatePercentage
 import kotlin.math.roundToInt
 
 class AppAnalyzer {
@@ -8,11 +9,10 @@ class AppAnalyzer {
         apps.count { app: App -> app.company.contains(companyName ?: "", true) }
 
     //Refactor
-    fun findPercentageOfAppsByCategory(apps: List<App>, categoryName: String?): Double? =
-        if (apps.isNotEmpty() && !categoryName.isNullOrBlank()) {
-            apps.count { app: App -> app.category.contains(categoryName, true) }
-                .also { count: Int -> (((count * 1.0 / apps.size) * 100) * 10).roundToInt() / 10 }.toDouble() }
-        else { null }
+    fun findPercentageOfAppsByCategory(apps: List<App>, categoryName: String): Double? =
+        if (apps.isNotEmpty() && categoryName.isNotEmpty()) {
+            apps.count { it.category.contains(categoryName.trim(), true) }.calculatePercentage(apps.size) }
+        else {null}
 
     //Refactor
     fun findOldestApp(apps: List<App>): App? =
@@ -20,11 +20,8 @@ class AppAnalyzer {
         else { null }
 
     //Refactor
-    fun findPercentageOfAppRunningOnSpecificAndroid(apps: List<App>, androidVersion: Double): Double? =
-        if (apps.isNotEmpty() && !androidVersion.isNaN()) {
-            apps.count { app: App -> app.requiresAndroid == androidVersion }
-                .also { count: Int -> (((count * 1.0 / apps.size) * 100) * 10).roundToInt() / 10 }.toDouble() }
-        else { null }
+    fun findPercentageOfAppRunningOnSpecificAndroid(apps: List<App>, version: Double): Double? =
+        apps.count { count-> count.requiresAndroid != null && count.requiresAndroid == version }.calculatePercentage(apps.size)
 
 
     // I can't refactor this function more than that😦😦😦😦 sorrrrrrrrrrrrrrrrrrrrrry
