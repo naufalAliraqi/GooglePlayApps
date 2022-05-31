@@ -161,7 +161,7 @@ internal class AppAnalyzerTest {
 
     /*
     * Point 5: The largest 10 apps by size.
-    * No. of test cases:
+    * No. of test cases: 5
     * */
 
     @Test // 5-1
@@ -183,6 +183,35 @@ internal class AppAnalyzerTest {
     @Test // 5-5
     fun should_ReturnNullOfLargest10Apps_When_AppDoseNotHaveSizeField() {
     }
+
+    /*
+    * Point 6: The top 10 installed apps.
+    * No. of test cases: 5
+    * */
+
+    @Test // 6-1
+    fun should_ReturnTop10InstalledApps_When_ValidAppList() {
+    }
+
+    @Test // 6-2
+    fun should_ReturnTopXInstalledApps_When_AppListSizeIsBetween0And9() {
+    }
+
+    @Test // 6-3
+    fun should_ReturnNullOfTop10InstalledApps_When_AppListIsEmpty() {
+    }
+
+    @Test // 6-4
+    fun should_ReturnNullOfTop10InstalledApps_When_AppListIsNull() {
+    }
+
+    @Test // 6-5
+    fun should_ReturnNullOfTop10InstalledApps_When_AppDoseNotHaveInstallsField() {
+    }
+
+
+
+
 
 
 
