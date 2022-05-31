@@ -1,17 +1,89 @@
+import model.App
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.TestInstance
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class AppAnalyzerTest {
 
     private lateinit var appAnalyzer: AppAnalyzer
+    private lateinit var apps: MutableList<App>
 
+    /*
+    * initialize the appAnalyzer class before all tests.
+    * */
     @BeforeAll
     fun setup() {
         appAnalyzer = AppAnalyzer()
     }
+
+    /*
+    * before each test, reinitialize the apps list.
+    * */
+    @BeforeEach
+    fun initializeApps() {
+        apps = mutableListOf()
+    }
+
+
+    /*
+    * Setup list of five demo applications just to test the appAnalyzer.
+    * TODO: size field should be changed to a integer.
+    * */
+    private fun setList(): MutableList<App> {
+        val appList = mutableListOf<App>()
+        appList.add(
+            App(
+                appName = "Book",
+                company = "Amazon",
+                category = "Libraries & Demo",
+                updated = LocalDate.parse("Jan 5 2000", DateTimeFormatter.ofPattern("MMMM d yyyy")),
+                size = 1500.0,
+                installs = 500000,
+                requiresAndroid = 4.4
+
+            )
+        )
+        appList.add(
+            App(
+                appName = "AD",
+                company = "Amazon",
+                category = "Libraries & Demo",
+                updated = LocalDate.parse("Jan 1 2020", DateTimeFormatter.ofPattern("MMMM d yyyy")),
+                size = 30000.0,
+                installs = 30,
+                requiresAndroid = 9.0
+            )
+        )
+        appList.add(
+            App(
+                appName = "Google Photo",
+                company = "Google",
+                category = "Libraries & Demo",
+                updated = LocalDate.parse("Jan 2 2000", DateTimeFormatter.ofPattern("MMMM d yyyy")),
+                size = 50000.0,
+                installs = 500,
+                requiresAndroid = 6.0
+            )
+        )
+        appList.add(
+            App(
+                appName = "Google Files",
+                company = "Google",
+                category = "Medical",
+                updated = LocalDate.parse("Jan 1 2019", DateTimeFormatter.ofPattern("MMMM d yyyy")),
+                size = 5000.0,
+                installs = 1000000,
+                requiresAndroid = 9.0
+            )
+        )
+        return appList
+    }
+
     /*
     * Points That Will Be Tested:
     * 1. The apps that have been developed by Google.
@@ -20,9 +92,11 @@ internal class AppAnalyzerTest {
     * 4. The percentage of apps running on android 9 or above.
     * 5. The largest 10 apps by size.
     * 6. The top 10 installed apps.
+    *
+    * Note: The (1-5 .. etc) that are below refers to:
+    * left side is the point that will be tested.
+    * right side is the number of test cases for that point.
     * */
-
-    /// - THE NEW TEST CASES - ///
 
     /*
     * Point 1: The apps that have been developed by Google.
@@ -209,7 +283,6 @@ internal class AppAnalyzerTest {
     @Test // 6-5
     fun should_ReturnNullOfTop10InstalledApps_When_AppDoseNotHaveInstallsField() {
     }
-
 
 
 //
