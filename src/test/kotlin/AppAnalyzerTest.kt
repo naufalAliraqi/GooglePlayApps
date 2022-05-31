@@ -207,47 +207,106 @@ internal class AppAnalyzerTest {
 
     /*
     * Point 2: The percentage of medical apps.
-    * No. of test cases: 10
+    * No. of test cases: 9
     * */
 
-    @Test // 2-1
+    @Test // 2-1 // already in fork
     fun should_ReturnPercentageOfGivenCategory_When_AppListIsNotEmpty() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is not empty and the category is medical.
+        val category = "Medical"
+        val result = appAnalyzer.findPercentageOfAppsByCategory(apps, category)
+        // then check the percentage of apps in the category.
+        assertEquals(25.0, result)
     }
 
     @Test // 2-2
     fun should_ReturnPercentageOfGivenCategory_When_CategoryContainsSpaces() {
+        // given a list of apps.
+        apps = setList()
+        // when the category contains spaces and the category is medical.
+        val category = " Medical   "
+        val result = appAnalyzer.findPercentageOfAppsByCategory(apps, category)
+        // then check the percentage of apps in the category.
+        assertEquals(25.0, result)
     }
 
     @Test // 2-3
     fun should_ReturnPercentageOfGivenCategory_When_CategoryContainsDots() {
+        // given a list of apps.
+        apps = setList()
+        // when the category contains dots and the category is medical.
+        val category = ".Medical.."
+        val result = appAnalyzer.findPercentageOfAppsByCategory(apps, category)
+        // then check the percentage of apps in the category.
+        assertEquals(25.0, result)
     }
 
     @Test // 2-4
     fun should_ReturnPercentageOfGivenCategory_When_CategoryInUpperCase() {
+        // given a list of apps.
+        apps = setList()
+        // when the category is in upper case and the category is medical.
+        val category = "MEDICAL"
+        val result = appAnalyzer.findPercentageOfAppsByCategory(apps, category)
+        // then check the percentage of apps in the category.
+        assertEquals(25.0, result)
     }
 
     @Test // 2-5
     fun should_ReturnPercentageOfGivenCategory_When_CategoryInMixedCase() {
+        // given a list of apps.
+        apps = setList()
+        // when the category is in mixed case and the category is medical.
+        val category = "mEdIcAl"
+        val result = appAnalyzer.findPercentageOfAppsByCategory(apps, category)
+        // then check the percentage of apps in the category.
+        assertEquals(25.0, result)
     }
 
     @Test // 2-6
     fun should_ReturnNullOfCategory_When_AppListIsEmpty() {
+        // given an empty list of apps.
+        apps = mutableListOf()
+        // when the app list is empty and the category is medical.
+        val category = "Medical"
+        val result = appAnalyzer.findPercentageOfAppsByCategory(apps, category)
+        // then check the percentage of apps in the category.
+        assertNull(result)
     }
 
     @Test // 2-7
     fun should_ReturnNullOfCategory_When_AppListIsNull() {
+        // given a null list of apps.
+        apps
+        // when the app list is null and the category is medical.
+        val category = "Medical"
+        val result = appAnalyzer.findPercentageOfAppsByCategory(apps, category)
+        // then check the percentage of apps in the category.
+        assertNull(result)
     }
 
-    @Test // 2-8
+    @Test // 2-8 // already in fork
     fun should_ReturnNullOfCategory_When_CategoryIsEmpty() {
+        // given a list of apps.
+        apps = setList()
+        // when the category is empty.
+        val category = ""
+        val result = appAnalyzer.findPercentageOfAppsByCategory(apps, category)
+        // then check the percentage of apps in the category.
+        assertNull(result)
     }
 
-    @Test // 2-9
-    fun should_ReturnNullOfCategory_When_AppDoseNotHaveCategory() {
-    }
-
-    @Test // 2-10
+    @Test // 2-9 // already in fork
     fun should_ReturnZeroOfCategory_When_CategoryIsNotFound() {
+        // given a list of apps.
+        apps = setList()
+        // when the category is not found.
+        val category = "NotFound"
+        val result = appAnalyzer.findPercentageOfAppsByCategory(apps, category)
+        // then check the percentage of apps in the category.
+        assertEquals(0.0, result)
     }
 
     /*
