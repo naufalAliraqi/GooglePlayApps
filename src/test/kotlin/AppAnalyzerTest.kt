@@ -134,6 +134,34 @@ internal class AppAnalyzerTest {
     fun should_ReturnNullOfOldestApp_When_AppDoseNotHavePublishedDate() {
     }
 
+    /*
+    * Point 4: The percentage of apps running on android 9 or above.
+    * No. of test cases:
+    * */
+
+    @Test // 4-1
+    fun should_ReturnPercentageOfAppsRunningOnAndroid9OrAbove_When_ValidAppList() {
+    }
+
+    @Test // 4-2
+    fun should_ReturnZero_When_NoAppsRunningOnAndroid9OrAbove() {
+    }
+
+    @Test // 4-3
+    fun should_ReturnNullOfPercentage_When_AppListIsEmpty() {
+    }
+
+    @Test // 4-4
+    fun should_ReturnNullOfPercentage_When_AppListIsNull() {
+    }
+
+    @Test // 4-5
+    fun should_ReturnZeroOfPercentage_When_AppDoseNotHaveOsVersion() {
+    }
+
+
+
+
 
 
 
