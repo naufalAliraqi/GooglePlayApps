@@ -12,7 +12,8 @@ internal class AppAnalyzerTest {
     fun setup() {
         appAnalyzer = AppAnalyzer()
     }
-    /* Points That Will Be Tested:
+    /*
+    * Points That Will Be Tested:
     * 1. The apps that have been developed by Google.
     * 2. The percentage of medical apps.
     * 3. The oldest app.
@@ -211,21 +212,11 @@ internal class AppAnalyzerTest {
 
 
 
-
-
-
-
-
-
-
-
-
 //
 //    // region test functions for findAppDevelopedByGoogle function
 //    @Test
 //    fun should_ReturnNumber1_When_HaveListWith1GoogleApp() {
 //        // given list contain one "Google" word
-//        val googlePlayAppList: MutableList<App> = mutableListOf()
 //        googlePlayAppList.add(
 //            App(
 //                "Jewel Blast : Temple", "Google", "Puzzle",
