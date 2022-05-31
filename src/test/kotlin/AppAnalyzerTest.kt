@@ -1,4 +1,6 @@
 import model.App
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.BeforeAll
@@ -31,7 +33,7 @@ internal class AppAnalyzerTest {
 
 
     /*
-    * Setup list of five demo applications just to test the appAnalyzer.
+    * Setup list of four demo applications just to test the appAnalyzer.
     * TODO: size field should be changed to a integer.
     * */
     private fun setList(): MutableList<App> {
@@ -101,42 +103,106 @@ internal class AppAnalyzerTest {
     /*
     * Point 1: The apps that have been developed by Google.
     * No. of test cases: 9
+    * TODO: Move the body of functions that already implemented in the fork and replace it with the new one if needed.
     * */
 
-    @Test // 1-1
-    fun should_ReturnNumOfAppsDevelopedByGoogle_When_CompanyNameContainsSpaces() {
+    @Test // 1-1 // already in fork
+    fun should_ReturnNumOfAppsDevelopedByCompany_When_ValidCompanyInput() {
+        // given a list of apps.
+        apps = setList()
+        // when the company name is completely valid.
+        val companyName = "Google"
+        val result = appAnalyzer.findAppDevelopedByGivenCompany(apps, companyName)
+        // then check the number of apps developed by the company.
+        assertEquals(2, result)
     }
 
     @Test // 1-2
-    fun should_ReturnNumOfAppsDevelopedByGoogle_When_CompanyNameContainsDots() {
+    fun should_ReturnNumOfAppsDevelopedByCompany_When_CompanyNameContainsSpaces() {
+        // given a list of apps.
+        apps = setList()
+        // when the company name contains spaces and the company name is Google.
+        val companyName = " Google "
+        val result = appAnalyzer.findAppDevelopedByGivenCompany(apps, companyName)
+        // then check the number of apps developed by the company.
+        assertEquals(2, result)
     }
 
     @Test // 1-3
-    fun should_ReturnNumOfAppsDevelopedByGoogle_When_CompanyNameInUpperCase() {
+    fun should_ReturnNumOfAppsDevelopedByCompany_When_CompanyNameContainsDots() {
+        // given a list of apps.
+        apps = setList()
+        // when the company name contains dots and the company name is Google.
+        val companyName = ".Google."
+        val result = appAnalyzer.findAppDevelopedByGivenCompany(apps, companyName)
+        // then check the number of apps developed by the company.
+        assertEquals(2, result)
     }
 
     @Test // 1-4
-    fun should_ReturnNumOfAppsDevelopedByGoogle_When_CompanyNameInMixedCase() {
+    fun should_ReturnNumOfAppsDevelopedByCompany_When_CompanyNameInUpperCase() {
+        // given a list of apps.
+        apps = setList()
+        // when the company name is in upper case and the company name is Google.
+        val companyName = "GOOGLE"
+        val result = appAnalyzer.findAppDevelopedByGivenCompany(apps, companyName)
+        // then check the number of apps developed by the company.
+        assertEquals(2, result)
     }
 
     @Test // 1-5
-    fun should_ReturnNullOfAppsDevelopedByGoogle_When_CompanyNameIsNotFound() {
+    fun should_ReturnNumOfAppsDevelopedByCompany_When_CompanyNameInMixedCase() {
+        // given a list of apps.
+        apps = setList()
+        // when the company name is in mixed case and the company name is Google.
+        val companyName = "gOOgLE"
+        val result = appAnalyzer.findAppDevelopedByGivenCompany(apps, companyName)
+        // then check the number of apps developed by the company.
+        assertEquals(2, result)
     }
 
-    @Test // 1-6
-    fun should_ReturnNullOfAppsDevelopedByGoogle_When_CompanyNameIsEmpty() {
+    @Test // 1-6 // already in fork
+    fun should_ReturnNullOfAppsDevelopedByCompany_When_CompanyNameIsNotFound() {
+        // given a list of apps.
+        apps = setList()
+        // when the company name is not found.
+        val companyName = "UnKnownCompany"
+        val result = appAnalyzer.findAppDevelopedByGivenCompany(apps, companyName)
+        // then check the number of apps developed by the company.
+        assertNull(result)
     }
 
     @Test // 1-7
-    fun should_ReturnNullOfAppsDevelopedByGoogle_When_AppListIsEmpty() {
+    fun should_ReturnNullOfAppsDevelopedByCompany_When_CompanyNameIsEmpty() {
+        // given a list of apps.
+        apps = setList()
+        // when the company name is empty.
+        val companyName = ""
+        val result = appAnalyzer.findAppDevelopedByGivenCompany(apps, companyName)
+        // then check the number of apps developed by the company.
+        assertNull(result)
     }
 
-    @Test // 1-8
-    fun should_ReturnNullOfAppsDevelopedByGoogle_When_AppListIsNull() {
+    @Test // 1-8 // already in fork
+    fun should_ReturnNullOfAppsDevelopedByCompany_When_AppListIsEmpty() {
+        // given empty list of apps.
+        apps = mutableListOf()
+        // when the app list is empty and the company name is Google.
+        val companyName = "Google"
+        val result = appAnalyzer.findAppDevelopedByGivenCompany(apps, companyName)
+        // then check the number of apps developed by the company.
+        assertNull(result)
     }
 
-    @Test // 1-9
-    fun should_ReturnNullOfAppsDevelopedByGoogle_When_AppDoseNotHaveCompanyField() {
+    @Test // 1-9 // already in fork
+    fun should_ReturnNullOfAppsDevelopedByCompany_When_AppListIsNull() {
+        // given null list of apps.
+        apps
+        // when the app list is null and the company name is Google.
+        val companyName = "Google"
+        val result = appAnalyzer.findAppDevelopedByGivenCompany(apps, companyName)
+        // then check the number of apps developed by the company.
+        assertNull(result)
     }
 
     /*
