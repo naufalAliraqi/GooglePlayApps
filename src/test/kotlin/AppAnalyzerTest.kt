@@ -77,7 +77,7 @@ internal class AppAnalyzerTest {
                 appName = "Google Files",
                 company = "Google",
                 category = "Medical",
-                updated = LocalDate.parse("Jan 1 2019", DateTimeFormatter.ofPattern("MMMM d yyyy")),
+                updated = LocalDate.parse("Jan 2 2000", DateTimeFormatter.ofPattern("MMMM d yyyy")),
                 size = 5000.0,
                 installs = 1000000,
                 requiresAndroid = 9.0
@@ -311,27 +311,50 @@ internal class AppAnalyzerTest {
 
     /*
     * Point 3: The oldest app.
-    * No. of test cases: 5
+    * No. of test cases: 4
     * */
 
-    @Test // 3-1
+    @Test // 3-1 // already in fork
     fun should_ReturnOldestApp_When_ValidAppList() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid.
+        val result = appAnalyzer.findOldestApp(apps)
+        // then check the oldest app in the list , which is the Google Photo app.
+        val googlePhotoAppIndex = 2
+        assertEquals(apps[googlePhotoAppIndex], result)
     }
 
-    @Test // 3-2
+    @Test // 3-2 // already in fork
     fun should_ReturnMultiOldestApp_When_TowOrMoreAppsHaveSameOldestDate() {
+        // given a list of apps.
+        apps = setList()
+        // when the app list is valid.
+        val result = appAnalyzer.findOldestApp(apps)
+        // then check the oldest app in the list , which is the Google Photo & Google files.
+        val googlePhotoAppIndex = 2
+        val googleFilesAppIndex = 3
+        assertEquals(mutableListOf(apps[googlePhotoAppIndex], apps[googleFilesAppIndex]), result)
     }
 
-    @Test // 3-3
+    @Test // 3-3 // already in fork
     fun should_ReturnNullOfOldestApp_When_AppListIsEmpty() {
+        // given an empty list of apps.
+        apps = mutableListOf()
+        // when the app list is empty.
+        val result = appAnalyzer.findOldestApp(apps)
+        // then check the oldest app in the list.
+        assertNull(result)
     }
 
     @Test // 3-4
     fun should_ReturnNullOfOldestApp_When_AppListIsNull() {
-    }
-
-    @Test // 3-5
-    fun should_ReturnNullOfOldestApp_When_AppDoseNotHavePublishedDate() {
+        // given a null list of apps.
+        apps
+        // when the app list is null.
+        val result = appAnalyzer.findOldestApp(apps)
+        // then check the oldest app in the list.
+        assertNull(result)
     }
 
     /*
