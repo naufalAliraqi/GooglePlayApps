@@ -136,7 +136,7 @@ internal class AppAnalyzerTest {
 
     /*
     * Point 4: The percentage of apps running on android 9 or above.
-    * No. of test cases:
+    * No. of test cases: 5
     * */
 
     @Test // 4-1
@@ -158,6 +158,32 @@ internal class AppAnalyzerTest {
     @Test // 4-5
     fun should_ReturnZeroOfPercentage_When_AppDoseNotHaveOsVersion() {
     }
+
+    /*
+    * Point 5: The largest 10 apps by size.
+    * No. of test cases:
+    * */
+
+    @Test // 5-1
+    fun should_ReturnLargest10Apps_When_ValidAppList() {
+    }
+
+    @Test // 5-2
+    fun should_ReturnLargestXApps_When_AppListSizeIsBetween0And9() {
+    }
+
+    @Test // 5-3
+    fun should_ReturnNullOfLargest10Apps_When_AppListIsEmpty() {
+    }
+
+    @Test // 5-4
+    fun should_ReturnNullOfLargest10Apps_When_AppListIsNull() {
+    }
+
+    @Test // 5-5
+    fun should_ReturnNullOfLargest10Apps_When_AppDoseNotHaveSizeField() {
+    }
+
 
 
 
