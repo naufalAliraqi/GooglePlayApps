@@ -1,6 +1,4 @@
 import model.App
-import utilities.calculatePercentage
-import kotlin.math.roundToInt
 
 class AppAnalyzer {
 
@@ -40,5 +38,8 @@ class AppAnalyzer {
                 .toList() }
         else { null }
     }
+
+    private fun Int.calculatePercentage(divisor:Int):Double? =
+        if (divisor!=0){ String.format("%.1f", 100.0 * this.div(divisor.toDouble())).toDouble() } else { null }
 
 }
