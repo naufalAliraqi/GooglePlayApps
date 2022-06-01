@@ -33,7 +33,7 @@ internal class CSVReaderTest {
         // when try open the file
         val result = csvReader.getTableRows(fileName)
         // then check
-        assertEquals(listOf<String>(), result)
+        assertFalse(result.isNullOrEmpty())
     }
 
     @Test
@@ -43,9 +43,6 @@ internal class CSVReaderTest {
         // when try open the file
         val result = csvReader.getTableRows(fileName)
         // then check
-        assertEquals(listOf<String>(), result)
+        assertFalse(result.isNullOrEmpty())
     }
-
-
-
 }

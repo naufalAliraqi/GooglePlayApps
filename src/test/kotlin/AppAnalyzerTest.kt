@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.TestInstance
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 /*
@@ -143,17 +141,6 @@ internal class AppAnalyzerTest {
         assertEquals(2, result)
     }
 
-    @Test // 1-3 //. or any special char is same as new company name as I think!!
-    fun should_ReturnNumOfAppsDevelopedByCompany_When_CompanyNameContainsDots() {
-        // given a list of apps.
-        apps = setList()
-        // when the company name contains dots and the company name is Google.
-        val companyName = ".Google."
-        val result = appAnalyzer.findAppDevelopedByGivenCompany(apps, companyName)
-        // then check the number of apps developed by the company.
-        assertEquals(2, result)
-    }
-
     @Test // 1-4
     fun should_ReturnNumOfAppsDevelopedByCompany_When_CompanyNameInUpperCase() {
         // given a list of apps.
@@ -236,14 +223,14 @@ internal class AppAnalyzerTest {
     }
 
     @Test // 2-3
-    fun should_ReturnPercentageOfGivenCategory_When_CategoryContainsDots() {
+    fun should_ReturnZero_When_CategoryContainsDots() {
         // given a list of apps.
         apps = setList()
         // when the category contains dots and the category is medical.
         val category = ".Medical.."
         val result = appAnalyzer.findPercentageOfAppsByCategory(apps, category)
         // then check the percentage of apps in the category.
-        assertEquals(25.0, result)
+        assertEquals(0.0, result)
     }
 
     @Test // 2-4
@@ -325,17 +312,6 @@ internal class AppAnalyzerTest {
         val result = appAnalyzer.findOldestApp(apps)
         // then check the oldest app in the list , which is the Google Photo app.
         assertEquals(apps[googlePhotoAppIndex], result)
-    }
-
-    @Test // 3-2
-    fun should_ReturnMultiOldestApp_When_TowOrMoreAppsHaveSameOldestDate() {
-        // given a list of apps.
-        apps = setList()
-        // when the app list is valid.
-        val result = appAnalyzer.findOldestApp(apps)
-        // then check the oldest app in the list , which is the Google Photo & Google files.
-        val expected = mutableListOf(apps[googlePhotoAppIndex], apps[googleFilesAppIndex])
-        assertEquals(expected,result)
     }
 
     @Test // 3-3

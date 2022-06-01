@@ -1,5 +1,6 @@
 import model.App
 import utilities.Constant
+import utilities.calculatePercentage
 
 class AppAnalyzer {
 
@@ -15,7 +16,8 @@ class AppAnalyzer {
     //Refactor
     fun findPercentageOfAppsByCategory(apps: List<App>, categoryName: String): Double? =
         if (apps.isNotEmpty() && categoryName.isNotEmpty()) {
-            apps.count { it.category.contains(categoryName.trim(), true) }.calculatePercentage(apps.size)
+            apps.count { it.category.contains(categoryName.trim(), true) }
+                .calculatePercentage(apps.size)
         } else {
             null
         }
@@ -47,7 +49,7 @@ class AppAnalyzer {
 
     //Replace
     fun topAppInstall(apps: List<App>, size: Int): List<App>? {
-        return if (apps.isNotEmpty() &&  size in Constant.MIN_COMPARE_INT..apps.size) {
+        return if (apps.isNotEmpty() &&  size in Constant.MIN_COMPARE_INT.. apps.size) {
             apps.sortedByDescending { dataSorted -> dataSorted.installs }
                 .take(size)
                 .toList()
@@ -55,12 +57,4 @@ class AppAnalyzer {
             null
         }
     }
-
-    private fun Int.calculatePercentage(divisor: Int): Double? =
-        if (divisor != 0) {
-            String.format("%.1f", 100.0 * this.div(divisor.toDouble())).toDouble()
-        } else {
-            null
-        }
-
 }
