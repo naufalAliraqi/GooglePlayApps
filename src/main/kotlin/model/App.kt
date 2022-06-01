@@ -10,6 +10,8 @@ data class App(
     var size: Long?,
     var installs: Long,
     var requiresAndroid: Double?,
-){
-    override fun toString() =  appName
+) {
+    override fun toString() = appName
+
+    override fun equals(appName: Any?): Boolean = this.appName == appName
 }
