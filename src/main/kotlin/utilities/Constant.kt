@@ -13,4 +13,5 @@ object Constant  {
     const val KILO_BYTE = 1024.0
     const val FILE_NAME = "google_play.csv"
     const val DATE_FORMAT = "MMMM d yyyy"
+    const val MIN_COMPARE_INT = 1
 }
