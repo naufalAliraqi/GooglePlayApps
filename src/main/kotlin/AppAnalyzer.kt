@@ -23,7 +23,7 @@ class AppAnalyzer {
     //Refactor
     fun findOldestApp(apps: List<App>): App? =
         if (apps.isNotEmpty()) {
-            apps.minByOrNull { selector -> selector.updated }
+            apps.filterNot { app -> app.updated == null }.minByOrNull { selector -> selector.updated!! }
         } else {
             null
         }

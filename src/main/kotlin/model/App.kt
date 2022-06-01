@@ -6,7 +6,7 @@ data class App(
     var appName: String,
     var company: String,
     var category: String,
-    var updated: Date,
+    var updated: Date?,
     var size: Long?,
     var installs: Long,
     var requiresAndroid: Double?,

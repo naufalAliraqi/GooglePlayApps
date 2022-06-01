@@ -11,7 +11,8 @@ object Constant  {
         const val REQUIRED_ANDROID = 7
     }
     const val KILO_BYTE = 1024.0
-    const val FILE_NAME = "google_play.csv"
+    const val FILE_NAME = "google_play"
+    const val SUFFIX_FILE_NAME=".csv"
     const val DATE_FORMAT = "MMMM d yyyy"
     const val MIN_COMPARE_INT = 1
 }

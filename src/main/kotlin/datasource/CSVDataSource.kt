@@ -31,7 +31,7 @@ open class CSVDataSource(private var fileName: String = Constant.FILE_NAME): Dat
 
     private fun String.convertToDouble():Double? = this.split(" ").first().toDoubleOrNull()
 
-    private fun String.stringToDate(): Date {
+    fun String.stringToDate(): Date? {
         return SimpleDateFormat(Constant.DATE_FORMAT).parse(this)
     }
 
