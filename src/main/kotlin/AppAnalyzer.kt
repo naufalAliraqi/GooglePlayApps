@@ -58,11 +58,10 @@ class AppAnalyzer {
         }
     }
 
-    fun getLargestAppSizeByCompanyName(apps: MutableList<App>,companyName:String): List<App>? {
-        val largestApp:MutableList<App>
-        return if (apps.isNotEmpty()&& companyName.isNotEmpty()) {
-            largestApp = apps.filter { it.company.contains(companyName.trim(), true) } as MutableList<App>
-            findLargestApps(largestApp, 1)
+    fun getLargestAppSizeByCompanyName(apps: List<App>,companyName:String): App? {
+        return if (apps.isNotEmpty() && companyName.isNotEmpty()) {
+           val largestApp = apps.filter { it.company.contains(companyName.trim(), true) }
+            findLargestApps(largestApp, 1)?.first()
         } else null
     }
 }
