@@ -15,7 +15,8 @@ fun main() {
     println(appAnalyzer.findLargestApps(googlePlayAppList,10))
     println(appAnalyzer.findTopNumberInstalledApps(googlePlayAppList,10))
 
-
+    println("The largest apps By Meta Platforms: ")
+    println(appAnalyzer.getLargestAppSizeByCompanyName(googlePlayAppList,"Meta Platforms Inc."))
 
 
 

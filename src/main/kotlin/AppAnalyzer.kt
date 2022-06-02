@@ -29,10 +29,10 @@ class AppAnalyzer {
 
     fun findLargestApps(app: MutableList<App>,rankSize:Int): MutableList<App>? {
         val listOfApp: MutableList<App> = mutableListOf()
-        if (listOfApp.isEmpty())
+        if (app.isEmpty())
             return null
 
-        if (app.size > rankSize) {
+        if (app.size > rankSize && app.isNotEmpty()) {
             app.sortedByDescending { it.size }.subList(0, rankSize).forEach {
                 listOfApp.add(it)
             }
@@ -59,4 +59,12 @@ class AppAnalyzer {
             return null
         return listOfApp
     }
-}
+
+    fun getLargestAppSizeByCompanyName(apps: MutableList<App>,companyName:String): List<App>? {
+        val largestApp:MutableList<App>
+        return if (apps.isNotEmpty()&& companyName.isNotEmpty()) {
+            largestApp = apps.filter { it.company.contains(companyName.trim(), true) } as MutableList<App>
+            findLargestApps(largestApp, 1)
+        } else null
+    }
+    }
