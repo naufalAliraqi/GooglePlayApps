@@ -55,15 +55,11 @@ internal class AppAnalyzerTest {
 
     /*
     * Setup list of four demo applications just to test the appAnalyzer.
-    * TODO: size field should be changed to a integer.
     * */
     private fun setList(testSet: Int = 0):MutableList<App> {
         val appList = mutableListOf<App>()
         when (testSet) {
-            1 -> {
-
-            }
-            else -> {
+            0 -> {
                 appList.add(
                     App(
                         appName = "Book",
@@ -116,7 +112,7 @@ internal class AppAnalyzerTest {
 
     /*
     * Point 1: The apps that have been developed by Company.
-    * No. of test cases: 9
+    * No. of test cases: 7
     * */
 
     @Test // 1-1
@@ -141,7 +137,7 @@ internal class AppAnalyzerTest {
         assertEquals(2, result)
     }
 
-    @Test // 1-4
+    @Test // 1-3
     fun should_ReturnNumOfAppsDevelopedByCompany_When_CompanyNameInUpperCase() {
         // given a list of apps.
         apps = setList()
@@ -152,7 +148,7 @@ internal class AppAnalyzerTest {
         assertEquals(2, result)
     }
 
-    @Test // 1-5
+    @Test // 1-4
     fun should_ReturnNumOfAppsDevelopedByCompany_When_CompanyNameInMixedCase() {
         // given a list of apps.
         apps = setList()
@@ -163,8 +159,8 @@ internal class AppAnalyzerTest {
         assertEquals(2, result)
     }
 
-    @Test // 1-6 //company not found should return not found 0 not null!!
-    fun should_ReturnNullOfAppsDevelopedByCompany_When_CompanyNameIsNotFound() {
+    @Test // 1-5
+    fun should_ReturnZeroOfAppsDevelopedByCompany_When_CompanyNameIsNotFound() {
         // given a list of apps.
         apps = setList()
         // when the company name is not found.
@@ -174,7 +170,7 @@ internal class AppAnalyzerTest {
         assertEquals(0,result)
     }
 
-    @Test // 1-7
+    @Test // 1-6
     fun should_ReturnNullOfAppsDevelopedByCompany_When_CompanyNameIsEmpty() {
         // given a list of apps.
         apps = setList()
@@ -185,7 +181,7 @@ internal class AppAnalyzerTest {
         assertNull(result)
     }
 
-    @Test // 1-8
+    @Test // 1-7
     fun should_ReturnNullOfAppsDevelopedByCompany_When_AppListIsEmpty() {
         // given empty list of apps.
         apps
@@ -195,9 +191,10 @@ internal class AppAnalyzerTest {
         // then check the number of apps developed by the company.
         assertNull(result)
     }
+
     /*
     * Point 2: The percentage of category.
-    * No. of test cases: 9
+    * No. of test cases: 8
     * */
 
     @Test // 2-1
@@ -267,17 +264,6 @@ internal class AppAnalyzerTest {
     }
 
     @Test // 2-7
-    fun should_ReturnNullOfCategory_When_AppListIsNull() {
-        // given a null list of apps.
-        apps
-        // when the app list is null and the category is medical.
-        val category = "Medical"
-        val result = appAnalyzer.findPercentageOfAppsByCategory(apps, category)
-        // then check the percentage of apps in the category.
-        assertNull(result)
-    }
-
-    @Test // 2-8
     fun should_ReturnNullOfCategory_When_CategoryIsEmpty() {
         // given a list of apps.
         apps = setList()
@@ -288,7 +274,7 @@ internal class AppAnalyzerTest {
         assertNull(result)
     }
 
-    @Test // 2-9
+    @Test // 2-8
     fun should_ReturnZeroOfCategory_When_CategoryIsNotFound() {
         // given a list of apps.
         apps = setList()
@@ -301,7 +287,7 @@ internal class AppAnalyzerTest {
 
     /*
     * Point 3: The oldest app.
-    * No. of test cases: 4
+    * No. of test cases: 2
     * */
 
     @Test // 3-1
@@ -314,7 +300,7 @@ internal class AppAnalyzerTest {
         assertEquals(apps[googlePhotoAppIndex], result)
     }
 
-    @Test // 3-3
+    @Test // 3-2
     fun should_ReturnNullOfOldestApp_When_AppListIsEmpty() {
         // given an empty list of apps.
         apps
@@ -351,7 +337,7 @@ internal class AppAnalyzerTest {
         assertEquals(50.0, result)
     }
 
-    @Test // 4-3 // already in fork
+    @Test // 4-3
     fun should_ReturnZero_When_AndroidSpecificVersionIsNotFound() {
         // given a list of apps.
         apps = setList()
@@ -398,7 +384,7 @@ internal class AppAnalyzerTest {
 
     /*
     * Point 5: The largest apps by size.
-    * No. of test cases: 6
+    * No. of test cases: 5
     * */
 
     @Test // 5-1
@@ -414,7 +400,7 @@ internal class AppAnalyzerTest {
         assertEquals(expectedResult, result)
     }
 
-    @Test // 5-2 // already in fork
+    @Test // 5-2
     fun should_ReturnNull_When_RangeIsBiggerThanAppListSize() {
         // given a list of apps.
         apps = setList()
@@ -425,7 +411,7 @@ internal class AppAnalyzerTest {
         assertNull(result)
     }
 
-    @Test // 5-3 // already in fork
+    @Test // 5-3
     fun should_ReturnNullOfLargestApps_When_AppListIsEmpty() {
         // given an empty list of apps.
         apps = mutableListOf()
@@ -463,7 +449,7 @@ internal class AppAnalyzerTest {
     * No. of test cases: 6
     * */
 
-    @Test // 6-1 // already in fork
+    @Test // 6-1
     fun should_ReturnTopInstallApps_When_ValidAppListAndRange() {
         // given a list of apps.
         apps = setList()

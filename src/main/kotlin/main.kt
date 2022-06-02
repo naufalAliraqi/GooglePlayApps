@@ -1,9 +1,13 @@
 import datasource.CSVDataSource
+import datasource.DataSource
 
 fun main() {
 
     val appAnalyzer= AppAnalyzer()
-    val appList = CSVDataSource().getAllApps()
+
+    val dataSource:DataSource = CSVDataSource()
+
+    val appList = dataSource.getAllApps()
 
      println("This is a develop by google " + appAnalyzer.findAppDevelopedByGivenCompany(appList,"Google") + " apps" )
      println("The percentage of Medical apps is " + appAnalyzer.findPercentageOfAppsByCategory(appList,"Medical") + "%")
